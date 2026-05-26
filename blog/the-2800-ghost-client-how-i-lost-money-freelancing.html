@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The $2,800 Ghost Client: How a Handshake Deal Cost Me Three Weeks of Work — ContractShield</title>
+<meta name="description" content="I spent 3 weeks on a rebrand. Delivered everything. Then silence. $2,800 gone. Here's exactly what happened — and what I'd do differently.">
+<meta property="og:title" content="The $2,800 Ghost Client: How a Handshake Deal Cost Me Three Weeks of Work — ContractShield">
+<meta property="og:description" content="I spent 3 weeks on a rebrand. Delivered everything. Then silence. $2,800 gone. Here's exactly what happened — and what I'd do differently.">
+<meta property="og:url" content="https://contractshield.co/blog/the-2800-ghost-client-how-i-lost-money-freelancing">
+<meta property="og:type" content="article">
+<meta property="og:image" content="https://contractshield.co/og-blog.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The $2,800 Ghost Client: How a Handshake Deal Cost Me Three Weeks of Work">
+<meta name="twitter:description" content="I spent 3 weeks on a rebrand. Delivered everything. Then silence. $2,800 gone. Here's exactly what happened — and what I'd do differently.">
+<link rel="canonical" href="https://contractshield.co/blog/the-2800-ghost-client-how-i-lost-money-freelancing">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    background: #fff;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  .container { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 0;
+  }
+  .nav .container { max-width: 1080px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 20px; font-weight: 800; color: #1e40af; display: flex; align-items: center; gap: 8px; }
+  .nav-logo .shield-icon {
+    width: 28px; height: 28px; background: #1e40af; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px;
+  }
+  .nav-cta {
+    background: #1e40af; color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #1e3a8a; }
+
+  /* Hero */
+  .article-hero {
+    padding: 100px 0 48px;
+    background: linear-gradient(175deg, #eff6ff 0%, #fff 60%);
+    text-align: center;
+  }
+  .article-tag {
+    display: inline-block;
+    background: #dbeafe; color: #1e40af;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .article-hero h1 {
+    font-size: clamp(26px, 4vw, 40px); font-weight: 800; color: #0f172a;
+    line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px;
+    max-width: 680px; margin-left: auto; margin-right: auto;
+  }
+  .article-meta {
+    font-size: 14px; color: #64748b; display: flex; align-items: center;
+    justify-content: center; gap: 16px; flex-wrap: wrap;
+  }
+  .article-meta strong { color: #1e293b; }
+
+  /* Article */
+  .article-body { padding: 48px 0 80px; }
+  .article-body h2 {
+    font-size: 22px; font-weight: 700; color: #0f172a;
+    margin: 36px 0 12px; letter-spacing: -0.01em;
+  }
+  .article-body h3 {
+    font-size: 18px; font-weight: 600; color: #1e293b;
+    margin: 28px 0 10px;
+  }
+  .article-body p {
+    font-size: 17px; color: #334155; margin-bottom: 20px; line-height: 1.75;
+  }
+  .article-body ul, .article-body ol {
+    margin: 0 0 20px 24px;
+  }
+  .article-body li {
+    font-size: 17px; color: #334155; margin-bottom: 8px; line-height: 1.7;
+  }
+  .article-body strong { color: #0f172a; font-weight: 600; }
+
+  /* Highlight box */
+  .highlight-box {
+    background: #f8fafc; border-left: 4px solid #1e40af;
+    padding: 20px 24px; border-radius: 0 8px 8px 0;
+    margin: 28px 0;
+  }
+  .highlight-box p { margin: 0; color: #334155; font-style: italic; }
+
+  /* CTA Box */
+  .cta-box {
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    border-radius: 16px; padding: 40px; text-align: center;
+    margin: 48px 0 0;
+  }
+  .cta-box h3 {
+    font-size: 22px; font-weight: 800; color: #fff;
+    margin-bottom: 12px; line-height: 1.3;
+  }
+  .cta-box p {
+    font-size: 16px; color: #bfdbfe; margin-bottom: 24px; line-height: 1.6;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: #fff; color: #1e40af;
+    font-size: 16px; font-weight: 700;
+    padding: 14px 32px; border-radius: 10px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  }
+  .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+
+  /* Footer */
+  .footer {
+    background: #0f172a; color: #94a3b8;
+    padding: 32px 0; font-size: 14px; text-align: center;
+  }
+  .footer a { color: #94a3b8; }
+  .footer a:hover { color: #fff; }
+
+  /* Back to blog */
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    color: #1e40af; font-size: 14px; font-weight: 600;
+    margin-bottom: 32px; transition: gap 0.15s;
+  }
+  .back-link:hover { gap: 10px; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo">
+      <div class="shield-icon">🛡</div>
+      ContractShield
+    </a>
+    <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="nav-cta">Get Your Contract — $10</a>
+  </div>
+</nav>
+
+<div class="article-hero">
+  <div class="container">
+    <div class="article-tag">Freelancer Stories</div>
+    <h1>The $2,800 Ghost Client: How a Handshake Deal Cost Me Three Weeks of Work</h1>
+    <div class="article-meta">
+      <span>By <strong>ContractShield</strong></span>
+      <span>·</span>
+      <span>4 min read</span>
+      <span>·</span>
+      <span>May 27, 2026</span>
+    </div>
+  </div>
+</div>
+
+<div class="article-body">
+  <div class="container">
+    <a href="/blog" class="back-link">← Back to Blog</a>
+
+    <p>The brief came in through LinkedIn. A product manager at a Series A startup. He wanted a full brand identity — logo system, color palette, typography, brand guidelines document. The timeline was tight: three weeks. He'd worked with designers before and seemed sharp. We got on a call, aligned on direction, and he said "let's go."</p>
+<p>No contract. Just a Slack message that said "confirmed, let's get started."</p>
+<p>I should have stopped there.</p>
+<p>Three weeks later, I delivered everything: logo in 12 formats, a 40-page brand guide, motion guidelines, and a complete asset library. He went quiet. One day, two days. I followed up. No response. A week later I called the company — he'd left. The new contact said they hadn't commissioned any branding work and weren't paying for anything they didn't authorize.</p>
+<p>$2,800. Gone.</p>
+<p>The worst part wasn't the money. It was that I had no recourse. No contract meant no legal agreement. No deposit meant no skin in the game for the client. No IP clause meant I'd handed over work I technically still owned — but couldn't use, because it was custom to their brand.</p>
+<p>I've talked to hundreds of freelancers since building ContractShield, and this story is shockingly common. The names change. The amounts change. The industry changes. But the pattern is identical: a confident client, a verbal agreement, no paperwork, and a bill that never gets paid.</p>
+<h2>What I'd Do Differently</h2>
+<p>First, I'd require a 50% deposit before starting anything. Not because I distrust every client — but because money creates commitment. A client who won't pay a deposit is telling you something important about how they treat vendors.</p>
+<p>Second, I'd have a contract that explicitly states: <strong>"IP ownership transfers upon receipt of final payment in full."</strong> This means the client doesn't legally own the work until they've paid. That's leverage. That's recourse.</p>
+<p>Third, I'd include a late payment clause — something like "invoices unpaid after 14 days accrue a 1.5% monthly late fee." Clients who know this pay faster.</p>
+<p>None of this requires a lawyer. A well-structured freelance contract covers all three in two pages. It's the difference between a story like mine and one that ends differently.</p>
+<p>The $2,800 was a tuition fee. ContractShield exists so you don't have to pay it too.</p>
+
+    <div class="cta-box">
+      <h3>Protect the Next Invoice Before It's an Issue</h3>
+      <p>ContractShield includes late payment fees, IP transfer clauses, and deposit terms — the exact language that makes clients pay on time.</p>
+      <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="cta-btn">Get Your Contract — $10</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 ContractShield &middot; <a href="/">Home</a> &middot; <a href="/blog">Blog</a> &middot; <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00">Get Your Contract</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
