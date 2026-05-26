@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Won't Pay? Here's What Freelancers Can Do Right Now — ContractShield</title>
+<meta name="description" content="Getting ghosted after delivering work is every freelancer's nightmare. Here are the exact steps to take when a client refuses to pay — from legal leverage to payment recovery.">
+<meta property="og:title" content="Client Won't Pay? Here's What Freelancers Can Do Right Now">
+<meta property="og:description" content="Getting ghosted after delivering work is every freelancer's nightmare. Here are the exact steps to take when a client refuses to pay — from legal leverage to payment recovery.">
+<meta property="og:image" content="https://contractshield.co/og-image.png">
+<meta property="og:url" content="https://contractshield.co/blog/client-wont-pay-freelancer-what-to-do">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    background: #fff;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  .container { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 0;
+  }
+  .nav .container { max-width: 1080px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 20px; font-weight: 800; color: #1e40af; display: flex; align-items: center; gap: 8px; }
+  .nav-logo .shield-icon {
+    width: 28px; height: 28px; background: #1e40af; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-link { font-size: 14px; font-weight: 600; color: #1e40af; }
+  .nav-link:hover { color: #1e3a8a; }
+  .nav-cta {
+    background: #1e40af; color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #1e3a8a; }
+
+  /* ── Hamburger / Mobile Nav ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-hamburger:hover { background: rgba(30,64,175,0.08); }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1e40af;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 57px;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 99;
+    flex-direction: column;
+    padding: 8px 0 16px;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.10);
+    animation: slideDown 0.2s ease;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav-mobile-menu a {
+    display: block;
+    padding: 13px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e40af;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+  }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  .nav-mobile-menu a:hover { background: #eff6ff; }
+  .nav-mobile-menu .nav-mobile-cta {
+    margin: 8px 24px 0;
+    padding: 12px 20px;
+    background: #1e40af;
+    color: #fff !important;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: none !important;
+  }
+  .nav-mobile-menu .nav-mobile-cta:hover { background: #1e3a8a !important; }
+
+  @media (max-width: 767px) {
+    .nav-hamburger { display: flex; }
+    .nav-links, .nav-desktop-links { display: none !important; }
+    .nav-cta { display: none !important; }
+    .nav-back { display: none !important; }
+  }
+  @media (min-width: 768px) {
+    .nav-mobile-menu { display: none !important; }
+  }
+
+  /* Back link */
+  .back-link-bar { padding: 80px 0 0; }
+  .back-link-bar .container { max-width: 1080px; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600; color: #64748b;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: #1e40af; }
+
+  /* Hero */
+  .article-hero {
+    padding: 24px 0 48px;
+    background: linear-gradient(175deg, #fff5f5 0%, #fff 60%);
+    text-align: center;
+  }
+  .article-tag {
+    display: inline-block;
+    background: #fee2e2; color: #b91c1c;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .article-hero h1 {
+    font-size: clamp(26px, 4vw, 40px); font-weight: 800; color: #0f172a;
+    line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px;
+    max-width: 680px; margin-left: auto; margin-right: auto;
+  }
+  .article-meta { font-size: 14px; color: #64748b; }
+
+  /* Body */
+  .article-body { padding: 48px 0 80px; }
+  .article-body h2 {
+    font-size: 22px; font-weight: 700; color: #0f172a;
+    margin: 40px 0 14px; letter-spacing: -0.01em;
+  }
+  .article-body h3 {
+    font-size: 18px; font-weight: 600; color: #0f172a;
+    margin: 28px 0 10px;
+  }
+  .article-body p { margin-bottom: 18px; color: #334155; font-size: 16px; }
+  .article-body ul, .article-body ol { margin: 0 0 18px 24px; color: #334155; font-size: 16px; }
+  .article-body li { margin-bottom: 8px; }
+
+  /* Step card */
+  .step {
+    display: flex; gap: 20px; margin-bottom: 32px;
+    padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 40px; height: 40px; background: #1e40af; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800;
+  }
+  .step-body { flex: 1; }
+  .step-body h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; color: #0f172a; }
+  .step-body p { margin: 0 0 6px; font-size: 15px; color: #334155; }
+  .step-body p:last-child { margin-bottom: 0; }
+
+  /* Warning box */
+  .warning-box {
+    background: #fef3c7; border: 1px solid #fcd34d; border-radius: 12px;
+    padding: 20px 24px; margin: 32px 0;
+  }
+  .warning-box p { margin: 0; font-size: 15px; color: #78350f; }
+  .warning-box strong { color: #92400e; }
+
+  /* Email template */
+  .email-template {
+    background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 12px;
+    padding: 24px; margin: 24px 0; font-family: monospace; font-size: 14px;
+    color: #334155; white-space: pre-wrap; line-height: 1.6;
+  }
+  .email-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: #64748b;
+    text-transform: uppercase; margin-bottom: 8px; display: block;
+  }
+
+  /* CTA box */
+  .cta-box {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    border-radius: 16px; padding: 36px 32px; color: #fff;
+    text-align: center; margin: 48px 0 0;
+  }
+  .cta-box h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .cta-box p { font-size: 15px; opacity: 0.85; margin-bottom: 24px; }
+  .cta-btn {
+    display: inline-block; background: #fff; color: #1e40af;
+    padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 700;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+  /* Footer */
+  .footer { border-top: 1px solid #e2e8f0; padding: 32px 0; text-align: center; }
+  .footer p { font-size: 13px; color: #94a3b8; }
+  .footer a { color: #64748b; }
+  .footer a:hover { color: #1e40af; }
+
+  @media (max-width: 600px) {
+    .step { flex-direction: column; }
+    .article-hero { padding: 24px 0 36px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo">
+
+      <span class="shield-icon">🛡</span>
+      ContractShield
+    
+    </a>
+    <div class="nav-links">
+      <a href="/templates" class="nav-link">Free Templates</a>
+      <a href="/blog" class="nav-link">Blog</a>
+      <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="nav-cta">Get Protected — $10</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="/">Home</a>
+  <a href="/templates">Free Templates</a>
+  <a href="/blog">Blog</a>
+  <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="nav-mobile-cta">Get Protected — $10</a>
+</div>
+
+<div class="back-link-bar">
+  <div class="container">
+    <a href="/blog" class="back-link">← Back to Blog</a>
+  </div>
+</div>
+
+<div class="article-hero">
+  <div class="container">
+    <span class="article-tag">Freelance Finance</span>
+    <h1>Client Won't Pay? Here's What Freelancers Can Do Right Now</h1>
+    <p class="article-meta">May 15, 2025 &middot; 10 min read</p>
+  </div>
+</div>
+
+<div class="article-body">
+  <div class="container">
+
+    <p>The invoice is past due. You've sent one reminder. Radio silence. Now what?</p>
+
+    <p>Getting stiffed by a client is one of the most demoralizing things that happens in freelancing — and it happens to almost everyone eventually. This guide gives you a clear, step-by-step path from that first awkward reminder to the last resort. Follow it in order.</p>
+
+    <div class="warning-box">
+      <p><strong>Before you start:</strong> Your leverage depends entirely on what's in writing. If you have a signed contract with payment terms, you're in a strong position. If you don't, the steps below still apply — but your leverage is weaker. Either way, keep reading.</p>
+    </div>
+
+    <h2>The 6-Step Response to a Non-Paying Client</h2>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Send a Polite Reminder — Assume Good Faith First</h3>
+        <p>The invoice might have gone to spam. The client might be on vacation. Their accounting system might have a bug. Most late payments at the 1–7 day mark aren't malicious — they're administrative.</p>
+        <p>Send a short, friendly email that assumes a simple oversight. This preserves the relationship and often resolves it instantly.</p>
+      </div>
+    </div>
+
+    <span class="email-label">Email template — Day 3-7 after due date</span>
+    <div class="email-template">Subject: Invoice #[NUMBER] — Quick Follow-Up
+
+Hi [Name],
+
+Just a quick follow-up on Invoice #[NUMBER] for $[AMOUNT], which was due on [DATE].
+
+If it's slipped through the cracks, here's the invoice again: [LINK]
+
+Let me know if you have any questions.
+
+Best,
+[Your Name]</div>
+
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Follow Up More Directly — No More Assuming</h3>
+        <p>If a week passes with no response to your first reminder, the tone shifts. This is no longer an administrative oversight. Keep it professional, but make clear that the invoice is overdue and you expect payment by a specific date.</p>
+        <p>Include the invoice again. State a clear deadline. Don't threaten yet — just be direct.</p>
+      </div>
+    </div>
+
+    <span class="email-label">Email template — Day 10-14 after due date</span>
+    <div class="email-template">Subject: Invoice #[NUMBER] — Now 10 Days Overdue
+
+Hi [Name],
+
+I haven't heard back on Invoice #[NUMBER] for $[AMOUNT], due on [DATE]. This invoice is now [X] days overdue.
+
+Please confirm receipt of this email and arrange payment by [SPECIFIC DATE — 5 business days from now].
+
+Invoice is attached. Payment link: [LINK]
+
+Thank you,
+[Your Name]</div>
+
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Send a Formal Demand Letter</h3>
+        <p>If no response after your second follow-up, it's time to treat this as a formal dispute. A demand letter signals that you're serious and creates a documented paper trail.</p>
+        <p>State the amount owed, cite your contract (if you have one), mention that late payment fees are accruing (if your contract includes them), and give a final deadline — typically 7-10 business days. State clearly what happens next if they don't pay: small claims court or collections.</p>
+        <p>Send it via email AND certified mail if possible. You want proof of delivery.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Pause or Withhold Deliverables</h3>
+        <p>If you have unpaid invoices and you're still actively working for the client — stop. Politely but clearly: work pauses until the outstanding balance is cleared.</p>
+        <p>If you've already delivered all work and you had a contract with an IP transfer clause, the client doesn't legally own the work until they've paid. This is significant leverage. Make sure they understand this.</p>
+        <p>Do not threaten to publish their files or do anything with their work — just state that ownership hasn't transferred and you're open to resolving the payment issue.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Try Small Claims Court (It's Easier Than You Think)</h3>
+        <p>Small claims court is designed for disputes exactly like this. No lawyer needed. In most US states, you can file online for $30–$75 for claims up to $5,000–$10,000 (limits vary by state). In the UK, the Money Claim Online service costs £35–£410 depending on the amount.</p>
+        <p>Here's what you need: a copy of your contract or agreement, copies of all invoices, proof of delivery (emails showing completed work), and copies of your payment reminders. That's it.</p>
+        <p>Many clients pay in full the moment they receive a court summons. The filing fee alone often resolves the dispute.</p>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <h3>Use a Collections Agency or Sell the Debt</h3>
+        <p>For amounts over $1,000 where court feels like too much overhead, a collections agency takes a cut (typically 25–50%) but handles everything. Agencies like Atradius, Euler Hermes, or even simpler services like Collectly work with freelancers.</p>
+        <p>Alternatively, some freelancers use invoice factoring — selling the debt at a discount to a third party who then pursues payment. You get immediate cash, they take the risk.</p>
+      </div>
+    </div>
+
+    <h2>What About Leaving a Review?</h2>
+
+    <p>Before you leave a bad review on Google, LinkedIn, or a freelancing platform — wait until the payment issue is formally resolved one way or another. A negative review left mid-dispute can be used against you legally in some jurisdictions, and some platforms will remove it anyway if the client disputes it.</p>
+
+    <p>After the dispute is resolved, an honest, factual review is fair. Stick to facts: "Did not pay Invoice #X for $Y despite two written reminders and a formal demand letter." No emotional language. Facts only.</p>
+
+    <h2>How to Avoid This Situation Next Time</h2>
+
+    <p>The best recovery from a non-paying client is making sure it doesn't happen again. Three things change the outcome dramatically:</p>
+
+    <ul>
+      <li><strong>Require a deposit.</strong> 25–50% upfront before you start any work. Non-negotiable.</li>
+      <li><strong>Use a contract with late payment fees.</strong> Clients who know there's a 1.5%/month penalty on late invoices pay faster.</li>
+      <li><strong>Don't transfer IP until you're paid.</strong> Your deliverables are leverage — use them.</li>
+    </ul>
+
+    <p>None of this requires a lawyer. A well-written freelance contract handles all of it.</p>
+
+    <div class="cta-box">
+      <h3>Protect the Next Invoice Before It's an Issue</h3>
+      <p>ContractShield includes late payment fees, IP transfer clauses, and deposit terms — the exact language that makes clients pay on time. Fill in your details, send it to your next client, and stop chasing invoices.</p>
+      <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="cta-btn">Get Your Contract — $10</a>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 ContractShield &middot; <a href="/">Home</a> &middot; <a href="/blog">Blog</a></p>
+  </div>
+</footer>
+
+
+<script>
+(function() {
+  var btn = document.getElementById('nav-hamburger-btn');
+  var menu = document.getElementById('nav-mobile-menu');
+  if (!btn || !menu) return;
+  function toggleMenu(open) {
+    btn.classList.toggle('open', open);
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu(!menu.classList.contains('open'));
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { toggleMenu(false); });
+  });
+  document.addEventListener('click', function(e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn) {
+      toggleMenu(false);
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+})();
+</script>
+
+</body>
+</html>

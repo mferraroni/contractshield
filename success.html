@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>You're in — ContractShield</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Vercel Analytics -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: #eff6ff; min-height: 100vh; display: flex; align-items: center; justify-content: center; color: #1e293b; }
+  .card { background: #fff; border-radius: 20px; padding: 56px 48px; max-width: 520px; width: 90%; text-align: center; box-shadow: 0 8px 40px rgba(30,64,175,0.12); border: 2px solid #bfdbfe; }
+  .icon { font-size: 56px; margin-bottom: 24px; }
+  h1 { font-size: 28px; font-weight: 800; color: #0f172a; margin-bottom: 12px; }
+  p { font-size: 16px; color: #64748b; line-height: 1.6; margin-bottom: 24px; }
+  .highlight { color: #1e40af; font-weight: 700; }
+  .back-link { display: inline-flex; align-items: center; gap: 6px; color: #1e40af; font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back-link:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">🛡️</div>
+  <h1>You're in!</h1>
+  <p>Your founding member spot is reserved. You'll get <span class="highlight">priority access + 50% off your first 3 contract reviews</span> when we launch.</p>
+  <p style="font-size:14px; color:#94a3b8;">Check your email for your receipt. Questions? <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a></p>
+  <a href="/" class="back-link">← Back to ContractShield</a>
+</div>
+<script>
+// Fire payment_success conversion event
+if (window.va) {
+  window.va('event', { name: 'payment_success' });
+}
+</script>
+</body>
+</html>

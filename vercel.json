@@ -1,0 +1,48 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "crons": [
+    {
+      "path": "/api/email-sequence",
+      "schedule": "0 10 * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/templates",
+      "destination": "/templates/index.html"
+    },
+    {
+      "source": "/templates/web-dev-contract",
+      "destination": "/templates/web-dev-contract.html"
+    },
+    {
+      "source": "/templates/design-contract",
+      "destination": "/templates/design-contract.html"
+    },
+    {
+      "source": "/templates/consulting-contract",
+      "destination": "/templates/consulting-contract.html"
+    },
+    {
+      "source": "/success",
+      "destination": "/success.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog/index.html"
+    },
+    {
+      "source": "/blog/freelance-contract-template-free",
+      "destination": "/blog/freelance-contract-template-free.html"
+    },
+    {
+      "source": "/blog/client-wont-pay-freelancer-what-to-do",
+      "destination": "/blog/client-wont-pay-freelancer-what-to-do.html"
+    },
+    {
+      "source": "/blog/scope-creep-freelance-how-to-prevent",
+      "destination": "/blog/scope-creep-freelance-how-to-prevent.html"
+    }
+  ]
+}

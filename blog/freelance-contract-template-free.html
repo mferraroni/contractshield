@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Freelance Contract Template (That Actually Protects You) — ContractShield</title>
+<meta name="description" content="A handshake deal won't protect your income. Grab this battle-tested freelance contract template — covers payment terms, scope, revisions, and kill fees.">
+<meta property="og:title" content="Free Freelance Contract Template (That Actually Protects You)">
+<meta property="og:description" content="A handshake deal won't protect your income. Grab this battle-tested freelance contract template — covers payment terms, scope, revisions, and kill fees.">
+<meta property="og:image" content="https://contractshield.co/og-image.png">
+<meta property="og:url" content="https://contractshield.co/blog/freelance-contract-template-free">
+<meta property="og:type" content="article">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    background: #fff;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  .container { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 0;
+  }
+  .nav .container { max-width: 1080px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 20px; font-weight: 800; color: #1e40af; display: flex; align-items: center; gap: 8px; }
+  .nav-logo .shield-icon {
+    width: 28px; height: 28px; background: #1e40af; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px;
+  }
+  .nav-links { display: flex; align-items: center; gap: 24px; }
+  .nav-link { font-size: 14px; font-weight: 600; color: #1e40af; }
+  .nav-link:hover { color: #1e3a8a; }
+  .nav-cta {
+    background: #1e40af; color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 14px; font-weight: 600; transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #1e3a8a; }
+
+  /* ── Hamburger / Mobile Nav ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-hamburger:hover { background: rgba(30,64,175,0.08); }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1e40af;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 57px;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 99;
+    flex-direction: column;
+    padding: 8px 0 16px;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.10);
+    animation: slideDown 0.2s ease;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav-mobile-menu a {
+    display: block;
+    padding: 13px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e40af;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+  }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  .nav-mobile-menu a:hover { background: #eff6ff; }
+  .nav-mobile-menu .nav-mobile-cta {
+    margin: 8px 24px 0;
+    padding: 12px 20px;
+    background: #1e40af;
+    color: #fff !important;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: none !important;
+  }
+  .nav-mobile-menu .nav-mobile-cta:hover { background: #1e3a8a !important; }
+
+  @media (max-width: 767px) {
+    .nav-hamburger { display: flex; }
+    .nav-links, .nav-desktop-links { display: none !important; }
+    .nav-cta { display: none !important; }
+    .nav-back { display: none !important; }
+  }
+  @media (min-width: 768px) {
+    .nav-mobile-menu { display: none !important; }
+  }
+
+  /* Back link */
+  .back-link-bar { padding: 80px 0 0; }
+  .back-link-bar .container { max-width: 1080px; }
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 600; color: #64748b;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: #1e40af; }
+
+  /* Article hero */
+  .article-hero {
+    padding: 24px 0 48px;
+    background: linear-gradient(175deg, #eff6ff 0%, #fff 60%);
+    text-align: center;
+  }
+  .article-tag {
+    display: inline-block;
+    background: #dbeafe; color: #1e40af;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .article-hero h1 {
+    font-size: clamp(26px, 4vw, 40px); font-weight: 800; color: #0f172a;
+    line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 16px;
+    max-width: 680px; margin-left: auto; margin-right: auto;
+  }
+  .article-meta { font-size: 14px; color: #64748b; margin-bottom: 0; }
+
+  /* Body */
+  .article-body { padding: 48px 0 80px; }
+  .article-body h2 {
+    font-size: 22px; font-weight: 700; color: #0f172a;
+    margin: 40px 0 14px; letter-spacing: -0.01em;
+  }
+  .article-body h3 {
+    font-size: 18px; font-weight: 600; color: #0f172a;
+    margin: 28px 0 10px;
+  }
+  .article-body p { margin-bottom: 18px; color: #334155; font-size: 16px; }
+  .article-body ul, .article-body ol { margin: 0 0 18px 24px; color: #334155; font-size: 16px; }
+  .article-body li { margin-bottom: 8px; }
+
+  /* Comparison card */
+  .template-card {
+    border: 1px solid #e2e8f0; border-radius: 12px; padding: 24px;
+    margin-bottom: 24px; background: #f8fafc;
+  }
+  .template-card.top-pick { border-color: #1e40af; background: #eff6ff; }
+  .template-card .pick-badge {
+    display: inline-block; background: #1e40af; color: #fff;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.06em;
+    padding: 3px 10px; border-radius: 4px; margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .template-card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 700; color: #0f172a; }
+  .template-card .template-meta { font-size: 13px; color: #64748b; margin-bottom: 10px; }
+  .template-card p { font-size: 15px; margin-bottom: 10px; }
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+  .pros, .cons { padding: 10px 14px; border-radius: 8px; font-size: 14px; }
+  .pros { background: #dcfce7; color: #15803d; }
+  .cons { background: #fee2e2; color: #b91c1c; }
+  .pros strong, .cons strong { display: block; margin-bottom: 4px; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+  /* CTA box */
+  .cta-box {
+    background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 100%);
+    border-radius: 16px; padding: 36px 32px; color: #fff;
+    text-align: center; margin: 48px 0 0;
+  }
+  .cta-box h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
+  .cta-box p { font-size: 15px; opacity: 0.85; margin-bottom: 24px; }
+  .cta-btn {
+    display: inline-block; background: #fff; color: #1e40af;
+    padding: 14px 32px; border-radius: 8px; font-size: 15px; font-weight: 700;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+  /* Footer */
+  .footer { border-top: 1px solid #e2e8f0; padding: 32px 0; text-align: center; }
+  .footer p { font-size: 13px; color: #94a3b8; }
+  .footer a { color: #64748b; }
+  .footer a:hover { color: #1e40af; }
+
+  @media (max-width: 600px) {
+    .pros-cons { grid-template-columns: 1fr; }
+    .article-hero { padding: 24px 0 36px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo">
+
+      <span class="shield-icon">🛡</span>
+      ContractShield
+    
+    </a>
+    <div class="nav-links">
+      <a href="/templates" class="nav-link">Free Templates</a>
+      <a href="/blog" class="nav-link">Blog</a>
+      <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="nav-cta">Get Protected — $10</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="/">Home</a>
+  <a href="/templates">Free Templates</a>
+  <a href="/blog">Blog</a>
+  <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="nav-mobile-cta">Get Protected — $10</a>
+</div>
+
+<div class="back-link-bar">
+  <div class="container">
+    <a href="/blog" class="back-link">← Back to Blog</a>
+  </div>
+</div>
+
+<div class="article-hero">
+  <div class="container">
+    <span class="article-tag">Resources</span>
+    <h1>Free Freelance Contract Template (That Actually Protects You)</h1>
+    <p class="article-meta">May 20, 2025 &middot; 9 min read</p>
+  </div>
+</div>
+
+<div class="article-body">
+  <div class="container">
+
+    <p>You've just landed a new client. The brief looks solid, the rate is fair, and you're ready to start. But then you remember: you have no contract.</p>
+
+    <p>Most freelancers know they need one. Far fewer actually have one that works. This guide covers the 7 best free freelance contract templates available in 2025 — what each one covers, where it falls short, and which one is worth actually using.</p>
+
+    <h2>What a Freelance Contract Actually Needs to Cover</h2>
+
+    <p>Before comparing templates, know what you're looking for. A contract that protects you must cover:</p>
+
+    <ul>
+      <li><strong>Scope of work</strong> — exactly what you'll deliver, in writing</li>
+      <li><strong>Payment terms</strong> — amounts, due dates, and what happens if they're missed</li>
+      <li><strong>Revision limits</strong> — how many rounds are included before extra charges apply</li>
+      <li><strong>Kill fee</strong> — what you're owed if the client cancels mid-project</li>
+      <li><strong>IP transfer</strong> — when (and only when) ownership passes to the client</li>
+      <li><strong>Dispute resolution</strong> — how conflicts get handled before anyone calls a lawyer</li>
+    </ul>
+
+    <p>Most "free" templates cover only the first two. Here's how the field shakes out.</p>
+
+    <h2>The 7 Best Freelance Contract Templates</h2>
+
+    <!-- 1 -->
+    <div class="template-card top-pick">
+      <span class="pick-badge">⭐ Top Pick</span>
+      <h3>ContractShield — Freelance Protection Contract</h3>
+      <p class="template-meta">$10 one-time &middot; Instant PDF &middot; Fill-in-the-blanks</p>
+      <p>ContractShield was built specifically because every other free template left out the clauses that matter when things go wrong. It was created by freelancers who had each lost money to scope creep, ghosted clients, and disputed deliverables.</p>
+      <p>The contract is written in plain English (no legalese), covers all six items above, and includes a Stripe payment link so your client can pay before you start. You fill in your name, the project details, and your rate — the contract is ready in under 5 minutes.</p>
+      <div class="pros-cons">
+        <div class="pros">
+          <strong>Strengths</strong>
+          Scope lock, kill fee, IP transfer clause, 30-day payment enforcement, plain English
+        </div>
+        <div class="cons">
+          <strong>Limitation</strong>
+          Not free — $10. But cheaper than losing a $2,000 invoice.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="template-card">
+      <h3>AIGA Standard Form of Agreement</h3>
+      <p class="template-meta">Free &middot; PDF/Word &middot; Designed for designers</p>
+      <p>The American Institute of Graphic Artists publishes a solid base contract that's been around for decades. It covers IP rights and kill fees well. The downside: it's wordy, written for US designers specifically, and feels intimidating to clients who aren't used to formal contracts.</p>
+      <div class="pros-cons">
+        <div class="pros"><strong>Strengths</strong> Comprehensive IP section, kill fee language, professional pedigree</div>
+        <div class="cons"><strong>Limitation</strong> Dense legalese, US-centric, missing payment enforcement clauses</div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="template-card">
+      <h3>AND CO Free Contract</h3>
+      <p class="template-meta">Free &middot; Requires account &middot; Embedded in tool</p>
+      <p>AND CO (now part of Fiverr) offers a contract builder inside their invoicing software. The template is clean and covers the basics. The catch: you need an account, and if you want e-signatures and payment integration, you'll need to upgrade.</p>
+      <div class="pros-cons">
+        <div class="pros"><strong>Strengths</strong> Nice UI, covers basics, pairs with invoicing</div>
+        <div class="cons"><strong>Limitation</strong> Locked inside a SaaS tool, requires upsell for key features</div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="template-card">
+      <h3>Bonsai Free Contract Template</h3>
+      <p class="template-meta">Free to view &middot; Requires paid plan to use fully</p>
+      <p>Bonsai is a well-known freelance management platform with solid contract templates. The templates are genuinely good — but the free tier severely limits what you can do with them. Expect a subscription sales pitch at every turn.</p>
+      <div class="pros-cons">
+        <div class="pros"><strong>Strengths</strong> Professional templates, industry-specific versions available</div>
+        <div class="cons"><strong>Limitation</strong> Freemium bait — core features require $17–$32/month</div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="template-card">
+      <h3>Docracy Open Contracts</h3>
+      <p class="template-meta">Free &middot; Community-submitted &middot; Variable quality</p>
+      <p>Docracy is a library of crowd-sourced legal documents. You'll find dozens of freelance contract variations — some excellent, some outdated, some written for jurisdictions that don't apply to you. Quality varies wildly and there's no editorial standard.</p>
+      <div class="pros-cons">
+        <div class="pros"><strong>Strengths</strong> Variety, genuinely free, community-reviewed</div>
+        <div class="cons"><strong>Limitation</strong> Inconsistent quality, hard to know which one to trust</div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="template-card">
+      <h3>Freelancers Union Contract Creator</h3>
+      <p class="template-meta">Free &middot; Web-based &middot; US-focused</p>
+      <p>The Freelancers Union contract builder is a legitimate resource backed by an advocacy organization. It walks you through a short questionnaire and generates a contract. It's decent for US freelancers, but the revision limits and scope change clauses are weaker than they should be.</p>
+      <div class="pros-cons">
+        <div class="pros"><strong>Strengths</strong> Guided wizard, free, backed by a real organization</div>
+        <div class="cons"><strong>Limitation</strong> US-only, weak on scope creep protection</div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="template-card">
+      <h3>Google Docs Generic Template</h3>
+      <p class="template-meta">Free &middot; Editable &middot; Requires customization</p>
+      <p>Yes, there are dozens of freelance contract templates on Google Docs. Some people use them. They're editable and free. They're also usually missing the kill fee, have no IP transfer clause, and will do nothing for you if a client decides not to pay.</p>
+      <div class="pros-cons">
+        <div class="pros"><strong>Strengths</strong> Easy to edit, free, familiar format</div>
+        <div class="cons"><strong>Limitation</strong> Usually incomplete — missing the clauses that matter most</div>
+      </div>
+    </div>
+
+    <h2>The Clauses Most Free Templates Skip</h2>
+
+    <p>Here's what separates a contract that looks professional from one that actually protects you:</p>
+
+    <h3>The Kill Fee</h3>
+    <p>If a client cancels a project after you've started, you've already spent time on it. A kill fee clause (usually 25–50% of the remaining contract value) ensures you're compensated. Most generic templates don't include one.</p>
+
+    <h3>Scope Lock with Change Order Language</h3>
+    <p>Clients add things. "While you're at it, can you just..." is how scope creep starts. A proper contract defines the deliverables precisely and states that anything outside that scope requires a new written agreement. Without this, you're working for free every time a client asks for "one small thing."</p>
+
+    <h3>Payment Before IP Transfer</h3>
+    <p>Your work is leverage. Don't hand it over until you've been paid. A good contract specifies that intellectual property transfers to the client only upon receipt of full payment. This one clause has saved freelancers thousands.</p>
+
+    <h3>Late Payment Fees</h3>
+    <p>Net-30 is a polite fiction. Clients who can pay in 30 days often don't — unless there's a financial consequence. A clause charging 1.5–2% per month on overdue invoices changes the incentive structure immediately.</p>
+
+    <h2>How to Pick the Right Template</h2>
+
+    <p>If your projects are under $500 and you're working with people you trust, a basic free template might be enough. If you're doing work over $500, working with new clients, or have ever been burned before — use something built for protection, not just paperwork.</p>
+
+    <p>The cost of a better contract is trivial compared to a single unpaid invoice. A client who owes you $2,000 and decides to disappear isn't going to be stopped by a politely worded Google Doc.</p>
+
+    <div class="cta-box">
+      <h3>Stop Starting Projects Without Protection</h3>
+      <p>ContractShield gives you a fill-in-the-blanks contract with every clause listed above. One payment, all your projects covered. Most freelancers recover the cost in the first invoice it protects.</p>
+      <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="cta-btn">Get Your Contract — $10</a>
+    </div>
+
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 ContractShield &middot; <a href="/">Home</a> &middot; <a href="/blog">Blog</a></p>
+  </div>
+</footer>
+
+
+<script>
+(function() {
+  var btn = document.getElementById('nav-hamburger-btn');
+  var menu = document.getElementById('nav-mobile-menu');
+  if (!btn || !menu) return;
+  function toggleMenu(open) {
+    btn.classList.toggle('open', open);
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu(!menu.classList.contains('open'));
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { toggleMenu(false); });
+  });
+  document.addEventListener('click', function(e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn) {
+      toggleMenu(false);
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+})();
+</script>
+
+</body>
+</html>

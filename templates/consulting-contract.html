@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consulting Agreement Generator — ContractShield</title>
+<meta name="description" content="Generate a professional consulting agreement covering NDA, deliverables, expense reimbursement, and confidentiality. Free fill-in-the-blanks form for freelance consultants.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b; background: #f8fafc; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  .container { width: 100%; max-width: 860px; margin: 0 auto; padding: 0 24px; }
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0; padding: 16px 0;
+  }
+  .nav .container { display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 20px; font-weight: 800; color: #1e40af; display: flex; align-items: center; gap: 8px; }
+  .nav-logo .shield-icon { width: 28px; height: 28px; background: #1e40af; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px; }
+  .nav-back { font-size: 14px; color: #64748b; }
+  .nav-back:hover { color: #1e40af; }
+  .page-header { padding: 100px 0 40px; background: linear-gradient(175deg, #f0fdf4 0%, #f8fafc 60%); border-bottom: 1px solid #e2e8f0; }
+  .template-badge { display: inline-flex; align-items: center; gap: 6px; background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; padding: 5px 14px; border-radius: 100px; font-size: 12px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 16px; }
+  .page-header h1 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: #0f172a; margin-bottom: 10px; letter-spacing: -0.02em; }
+  .page-header p { font-size: 16px; color: #475569; max-width: 560px; }
+  .progress-bar { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 16px 0; position: sticky; top: 61px; z-index: 90; }
+  .progress-steps { display: flex; align-items: center; }
+  .step { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: #94a3b8; flex: 1; cursor: pointer; padding: 8px 12px; border-radius: 8px; transition: all 0.2s; }
+  .step.active { color: #15803d; background: #f0fdf4; }
+  .step.done { color: #16a34a; }
+  .step-num { width: 24px; height: 24px; border-radius: 50%; background: #e2e8f0; color: #94a3b8; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .step.active .step-num { background: #16a34a; color: #fff; }
+  .step.done .step-num { background: #16a34a; color: #fff; }
+  .step-divider { width: 20px; flex-shrink: 0; height: 1px; background: #e2e8f0; }
+  .main { padding: 40px 0 80px; }
+  .form-card { background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.06); padding: 40px; display: none; }
+  .form-card.active { display: block; }
+  .section-title { font-size: 20px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  .section-desc { font-size: 14px; color: #64748b; margin-bottom: 28px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 600; color: #374151; }
+  .field .hint { font-size: 12px; color: #94a3b8; margin-top: -4px; }
+  .field input, .field select, .field textarea { padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-size: 14px; color: #1e293b; font-family: inherit; background: #fff; transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.08); }
+  .field input::placeholder, .field textarea::placeholder { color: #cbd5e1; }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; }
+  .clause-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .clause-item { display: flex; align-items: flex-start; gap: 12px; padding: 16px; border-radius: 10px; border: 1.5px solid #e2e8f0; cursor: pointer; transition: all 0.15s; background: #fff; }
+  .clause-item:hover { border-color: #86efac; background: #f0fdf4; }
+  .clause-item.checked { border-color: #16a34a; background: #f0fdf4; }
+  .clause-checkbox { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 5px; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .clause-item.checked .clause-checkbox { background: #16a34a; border-color: #16a34a; }
+  .clause-checkbox-inner { display: none; color: #fff; font-size: 13px; font-weight: 700; }
+  .clause-item.checked .clause-checkbox-inner { display: block; }
+  .clause-text h4 { font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 2px; }
+  .clause-text p { font-size: 13px; color: #64748b; }
+  .clause-badge { margin-left: auto; flex-shrink: 0; background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 100px; }
+  .form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid #f1f5f9; }
+  .btn-back { padding: 10px 22px; border-radius: 8px; border: 1.5px solid #e2e8f0; background: #fff; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer; transition: all 0.2s; }
+  .btn-back:hover { border-color: #94a3b8; color: #374151; }
+  .btn-next { padding: 10px 28px; border-radius: 8px; background: #16a34a; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; border: none; transition: background 0.2s; }
+  .btn-next:hover { background: #15803d; }
+  .btn-generate { padding: 12px 32px; border-radius: 10px; background: #16a34a; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; border: none; transition: background 0.2s; }
+  .btn-generate:hover { background: #15803d; }
+  .preview-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 12px; }
+  .preview-header h2 { font-size: 20px; font-weight: 700; color: #0f172a; }
+  .preview-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-print { padding: 10px 22px; border-radius: 8px; border: 1.5px solid #16a34a; color: #16a34a; background: #fff; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.2s; }
+  .btn-print:hover { background: #f0fdf4; }
+  .btn-copy { padding: 10px 22px; border-radius: 8px; background: #16a34a; color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; border: none; display: flex; align-items: center; gap: 6px; }
+  .btn-copy:hover { background: #15803d; }
+  .btn-upgrade { padding: 10px 22px; border-radius: 8px; background: linear-gradient(135deg, #1e40af, #4f46e5); color: #fff; font-size: 14px; font-weight: 700; cursor: pointer; border: none; }
+  .contract-doc { background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 48px 52px; font-family: 'Georgia', serif; font-size: 14px; line-height: 1.75; color: #1e293b; white-space: pre-wrap; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .upsell-banner { background: linear-gradient(135deg, #4f46e5, #7c3aed); border-radius: 14px; padding: 24px 28px; margin-top: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .upsell-banner h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .upsell-banner p { font-size: 13px; color: rgba(255,255,255,0.8); }
+  .btn-upsell { padding: 10px 24px; border-radius: 8px; background: #fff; color: #4f46e5; font-size: 14px; font-weight: 700; cursor: pointer; border: none; white-space: nowrap; flex-shrink: 0; }
+  @media (max-width: 640px) {
+    .form-row { grid-template-columns: 1fr; }
+    .form-row.triple { grid-template-columns: 1fr; }
+    .form-card { padding: 24px; }
+    .contract-doc { padding: 24px; }
+    .step-label { display: none; }
+  }
+  @media print {
+    .nav, .progress-bar, .upsell-banner, .preview-actions, .page-header { display: none !important; }
+    body { background: #fff; }
+    .contract-doc { border: none; box-shadow: none; padding: 0; }
+    .main { padding: 0; }
+  }
+
+  /* ── Hamburger / Mobile Nav ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    <nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo"><span class="shield-icon">⛨</span> ContractShield</a>
+    <a href="/templates" class="nav-back">← Back to Templates</a>
+    <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="/">Home</a>
+  <a href="/templates">Free Templates</a>
+  <a href="/blog">Blog</a>
+  <a href="/#pricing" class="nav-mobile-cta">Get Early Access</a>
+</div>rger:hover { background: rgba(30,64,175,0.08); }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1e40af;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 57px;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 99;
+    flex-direction: column;
+    padding: 8px 0 16px;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.10);
+    animation: slideDown 0.2s ease;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav-mobile-menu a {
+    display: block;
+    padding: 13px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e40af;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+  }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  .nav-mobile-menu a:hover { background: #eff6ff; }
+  .nav-mobile-menu .nav-mobile-cta {
+    margin: 8px 24px 0;
+    padding: 12px 20px;
+    background: #1e40af;
+    color: #fff !important;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: none !important;
+  }
+  .nav-mobile-menu .nav-mobile-cta:hover { background: #1e3a8a !important; }
+
+  @media (max-width: 767px) {
+    .nav-hamburger { display: flex; }
+    .nav-links, .nav-desktop-links { display: none !important; }
+    .nav-cta { display: none !important; }
+    .nav-back { display: none !important; }
+  }
+  @media (min-width: 768px) {
+    .nav-mobile-menu { display: none !important; }
+  }
+
+</style>
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo"><span class="shield-icon">⛨</span> ContractShield</a>
+    <a href="/templates" class="nav-back">← Back to Templates</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="template-badge">📊 General Consulting</div>
+    <h1>Consulting Agreement Generator</h1>
+    <p>Create a professional consulting contract covering NDA, clearly defined deliverables, expense reimbursement, and non-solicitation. Ready in 2 minutes.</p>
+  </div>
+</div>
+
+<div class="progress-bar">
+  <div class="container">
+    <div class="progress-steps">
+      <div class="step active" id="step-tab-1" onclick="goToStep(1)"><div class="step-num">1</div><span class="step-label">Parties</span></div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-2" onclick="goToStep(2)"><div class="step-num">2</div><span class="step-label">Engagement</span></div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-3" onclick="goToStep(3)"><div class="step-num">3</div><span class="step-label">Payment</span></div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-4" onclick="goToStep(4)"><div class="step-num">4</div><span class="step-label">Clauses</span></div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-5" onclick="goToStep(5)"><div class="step-num">5</div><span class="step-label">Preview</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="container">
+
+    <!-- Step 1: Parties -->
+    <div class="form-card active" id="step-1">
+      <div class="section-title">Who are the parties?</div>
+      <div class="section-desc">Enter your details and your client's information.</div>
+      <div class="form-row">
+        <div class="field">
+          <label>Your Full Name / Firm Name</label>
+          <input type="text" id="freelancer_name" placeholder="e.g. Alex Rivera / Rivera Strategy LLC" />
+        </div>
+        <div class="field">
+          <label>Your Address</label>
+          <input type="text" id="freelancer_address" placeholder="e.g. 789 Pine St, Chicago, IL 60601" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Your Email</label>
+          <input type="email" id="freelancer_email" placeholder="you@firm.com" />
+        </div>
+        <div class="field">
+          <label>Your State / Country</label>
+          <input type="text" id="freelancer_state" placeholder="e.g. Illinois, USA" />
+        </div>
+      </div>
+      <div style="border-top: 1px solid #f1f5f9; margin: 24px 0;"></div>
+      <div class="form-row">
+        <div class="field">
+          <label>Client Company Name</label>
+          <input type="text" id="client_name" placeholder="e.g. Horizon Ventures Inc." />
+        </div>
+        <div class="field">
+          <label>Client Address</label>
+          <input type="text" id="client_address" placeholder="e.g. 100 Innovation Dr, Boston, MA" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Client Email</label>
+          <input type="email" id="client_email" placeholder="contact@client.com" />
+        </div>
+        <div class="field">
+          <label>Client Contact Name &amp; Title</label>
+          <input type="text" id="client_contact" placeholder="e.g. Sarah Chen (VP Operations)" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Agreement Date</label>
+          <input type="date" id="contract_date" />
+        </div>
+        <div class="field">
+          <label>Governing Law</label>
+          <input type="text" id="governing_law" placeholder="e.g. State of Illinois" />
+        </div>
+      </div>
+      <div class="form-nav">
+        <div></div>
+        <button class="btn-next" onclick="goToStep(2)">Next: Engagement Details →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Engagement -->
+    <div class="form-card" id="step-2">
+      <div class="section-title">Engagement Scope &amp; Deliverables</div>
+      <div class="section-desc">Define what you will do, the outputs you will produce, and the timeline.</div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Engagement / Project Name</label>
+          <input type="text" id="project_name" placeholder="e.g. Go-to-Market Strategy — Series A Product Launch" />
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Services Description</label>
+          <span class="hint">Describe what you will do. Be specific about advisory, analysis, implementation, or training.</span>
+          <textarea id="project_scope" rows="5" placeholder="e.g. Provide strategic consulting services for the Client's Series A product launch, including: competitive landscape analysis, target customer segmentation, pricing strategy recommendation, 90-day GTM roadmap, and two executive workshop sessions (each 2 hours)."></textarea>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Key Deliverables</label>
+          <span class="hint">List the concrete outputs, documents, or reports you will produce.</span>
+          <textarea id="deliverables" rows="4" placeholder="e.g. 1. Written competitive landscape report (20-30 pages)&#10;2. Customer segmentation model (Excel + slide deck)&#10;3. Pricing strategy recommendation memo&#10;4. 90-day GTM roadmap presentation&#10;5. Two 2-hour executive workshop sessions (slides included)"></textarea>
+        </div>
+      </div>
+      <div class="form-row triple">
+        <div class="field">
+          <label>Engagement Type</label>
+          <select id="engagement_type">
+            <option value="Project-Based">Project-Based (fixed scope)</option>
+            <option value="Retainer">Monthly Retainer</option>
+            <option value="Hourly">Hourly Advisory</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Start Date</label>
+          <input type="date" id="start_date" />
+        </div>
+        <div class="field">
+          <label>End Date / Duration</label>
+          <input type="text" id="end_date" placeholder="e.g. Dec 31, 2026 or 3 months" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Maximum Hours (if hourly/retainer)</label>
+          <input type="text" id="max_hours" placeholder="e.g. Up to 20 hrs/month or N/A" />
+        </div>
+        <div class="field">
+          <label>Client Point of Contact</label>
+          <input type="text" id="client_poc" placeholder="e.g. Sarah Chen — all communications go through her" />
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Out of Scope (Exclusions)</label>
+          <textarea id="exclusions" rows="3" placeholder="e.g. Implementation of recommendations, software development, legal advice, financial modelling beyond high-level projections, ongoing post-engagement support"></textarea>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(1)">← Back</button>
+        <button class="btn-next" onclick="goToStep(3)">Next: Payment →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Payment -->
+    <div class="form-card" id="step-3">
+      <div class="section-title">Fees &amp; Payment</div>
+      <div class="section-desc">Set your consulting rate, payment schedule, and expense policy.</div>
+      <div class="form-row triple">
+        <div class="field">
+          <label>Fee / Rate</label>
+          <input type="text" id="total_fee" placeholder="e.g. $8,000 / $200 per hour" />
+        </div>
+        <div class="field">
+          <label>Currency</label>
+          <select id="currency">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Upfront Retainer / Deposit</label>
+          <select id="deposit_pct">
+            <option value="none">None</option>
+            <option value="25">25%</option>
+            <option value="50" selected>50%</option>
+            <option value="100">100% prepaid</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Payment Schedule</label>
+          <textarea id="milestones" rows="3" placeholder="e.g. 50% retainer due upon signing&#10;25% due upon delivery of competitive analysis and segmentation model&#10;25% final balance due upon completion of GTM roadmap and workshops"></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Invoice Payment Terms</label>
+          <select id="payment_terms">
+            <option value="7">Net 7 (7 days)</option>
+            <option value="14" selected>Net 14 (14 days)</option>
+            <option value="30">Net 30 (30 days)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Late Payment Fee</label>
+          <select id="late_fee">
+            <option value="1">1% per month</option>
+            <option value="1.5" selected>1.5% per month</option>
+            <option value="2">2% per month</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Accepted Payment Methods</label>
+          <input type="text" id="payment_methods" placeholder="e.g. ACH / Wire transfer, PayPal, Stripe" />
+        </div>
+        <div class="field">
+          <label>Expense Reimbursement</label>
+          <select id="expense_policy">
+            <option value="no_expenses">No expense reimbursement</option>
+            <option value="preapproved" selected>Pre-approved expenses reimbursed</option>
+            <option value="all_reasonable">All reasonable business expenses</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Expense Approval Threshold</label>
+          <input type="text" id="expense_threshold" placeholder="e.g. Pre-approval required above $100" />
+        </div>
+        <div class="field">
+          <label>Expense Invoice Cycle</label>
+          <select id="expense_cycle">
+            <option value="monthly" selected>Monthly with supporting receipts</option>
+            <option value="per_milestone">Per milestone</option>
+            <option value="immediately">Immediately upon incurrence</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(2)">← Back</button>
+        <button class="btn-next" onclick="goToStep(4)">Next: Clauses →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Clauses -->
+    <div class="form-card" id="step-4">
+      <div class="section-title">Contract Clauses</div>
+      <div class="section-desc">Select clauses to include. Pre-selected ones are strongly recommended for consulting engagements.</div>
+      <div class="clause-list">
+        <div class="clause-item checked" id="clause-nda" onclick="toggleClause('nda')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Mutual NDA / Confidentiality</h4>
+            <p>Both parties agree to keep confidential information private for the duration of the engagement and 3 years beyond. Covers business strategy, financials, trade secrets, and customer data.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-deliverables" onclick="toggleClause('deliverables')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Deliverables Acceptance Process</h4>
+            <p>Client has 7 business days to review and accept or reject deliverables with written feedback. No response within 7 days constitutes acceptance.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-expenses" onclick="toggleClause('expenses')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Expense Reimbursement Policy</h4>
+            <p>Pre-approved business expenses (travel, accommodation, software) are reimbursed with receipts. Expenses above the threshold require advance written approval.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-independence" onclick="toggleClause('independence')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Independent Contractor Status</h4>
+            <p>Consultant is an independent contractor, not an employee. Client does not direct work methods, hours, or tools. No benefits, payroll taxes, or employment protections apply.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-termination" onclick="toggleClause('termination')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Termination for Convenience</h4>
+            <p>Either party may terminate with 14 days written notice. Client pays for all work completed to date. Any prepaid retainer for unperformed work is refunded pro-rata.</p>
+          </div>
+        </div>
+        <div class="clause-item" id="clause-nonsolicitation" onclick="toggleClause('nonsolicitation')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Non-Solicitation</h4>
+            <p>Client will not directly solicit, hire, or contract any members of Consultant's team for 12 months after engagement ends.</p>
+          </div>
+        </div>
+        <div class="clause-item" id="clause-noncompete" onclick="toggleClause('noncompete')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Non-Compete (narrow)</h4>
+            <p>Consultant will not provide identical services to Client's direct competitors during the engagement term. Consultant retains the right to serve other clients in other industries.</p>
+          </div>
+        </div>
+        <div class="clause-item" id="clause-ip" onclick="toggleClause('ip')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Work Product Ownership</h4>
+            <p>Client owns the custom deliverables produced for this engagement upon full payment. Consultant retains pre-existing methodologies, frameworks, and tools used to create them.</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(3)">← Back</button>
+        <button class="btn-generate" onclick="generateContract()">⚡ Generate Agreement →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Preview -->
+    <div class="form-card" id="step-5">
+      <div class="preview-header">
+        <h2>📄 Your Consulting Agreement</h2>
+        <div class="preview-actions">
+          <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+          <button class="btn-copy" onclick="copyContract()" id="copy-btn">📋 Copy Text</button>
+          <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" target="_blank">
+            <button class="btn-upgrade">⚡ AI Review — $10</button>
+          </a>
+        </div>
+      </div>
+      <div class="contract-doc" id="contract-output"></div>
+      <div class="upsell-banner">
+        <div>
+          <h3>Want AI to review this agreement before signing?</h3>
+          <p>ContractShield AI flags non-competes, IP grabs, liability traps, and non-payment clauses before they cost you.</p>
+        </div>
+        <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" target="_blank">
+          <button class="btn-upsell">Get AI Review — $10 →</button>
+        </a>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(4)">← Edit Clauses</button>
+        <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let currentStep = 1;
+const clauses = {
+  nda: true, deliverables: true, expenses: true, independence: true,
+  termination: true, nonsolicitation: false, noncompete: false, ip: false
+};
+
+function goToStep(n) {
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('step-tab-' + currentStep).classList.remove('active');
+  if (currentStep < n) document.getElementById('step-tab-' + currentStep).classList.add('done');
+  currentStep = n;
+  document.getElementById('step-' + n).classList.add('active');
+  document.getElementById('step-tab-' + n).classList.add('active');
+  document.getElementById('step-tab-' + n).classList.remove('done');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleClause(key) {
+  clauses[key] = !clauses[key];
+  document.getElementById('clause-' + key).classList.toggle('checked', clauses[key]);
+}
+
+function v(id, fallback) {
+  const el = document.getElementById(id);
+  if (!el) return fallback || '[not specified]';
+  return el.value.trim() || fallback || '[not specified]';
+}
+
+function generateContract() {
+  goToStep(5);
+
+  const freelancer = v('freelancer_name');
+  const freelancerAddr = v('freelancer_address');
+  const freelancerEmail = v('freelancer_email');
+  const client = v('client_name');
+  const clientAddr = v('client_address');
+  const clientEmail = v('client_email');
+  const clientContact = v('client_contact');
+  const govLaw = v('governing_law');
+  const contractDate = v('contract_date') === '[not specified]'
+    ? new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'})
+    : new Date(v('contract_date') + 'T00:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  const projectName = v('project_name');
+  const scope = v('project_scope');
+  const deliverables = v('deliverables');
+  const engagementType = v('engagement_type');
+  const startDate = v('start_date') === '[not specified]' ? '[Start Date]' : new Date(v('start_date') + 'T00:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  const endDate = v('end_date');
+  const maxHours = v('max_hours');
+  const clientPOC = v('client_poc');
+  const exclusions = v('exclusions');
+  const totalFee = v('total_fee');
+  const currency = v('currency');
+  const depositPct = v('deposit_pct');
+  const paymentTerms = v('payment_terms');
+  const lateFee = v('late_fee');
+  const milestones = v('milestones');
+  const paymentMethods = v('payment_methods');
+  const expensePolicy = v('expense_policy');
+  const expenseThreshold = v('expense_threshold');
+  const expenseCycle = v('expense_cycle');
+
+  let doc = '';
+  doc += `CONSULTING SERVICES AGREEMENT\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `This Consulting Services Agreement ("Agreement") is entered into as of ${contractDate}, between:\n\n`;
+  doc += `CONSULTANT: ${freelancer}\n`;
+  doc += `Address: ${freelancerAddr}\n`;
+  doc += `Email: ${freelancerEmail}\n\n`;
+  doc += `CLIENT: ${client}\n`;
+  doc += `Address: ${clientAddr}\n`;
+  doc += `Email: ${clientEmail}\n`;
+  doc += `Attention: ${clientContact}\n\n`;
+  doc += `(each a "Party," collectively the "Parties")\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `1. SERVICES\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Engagement: ${projectName}\nEngagement Type: ${engagementType}\n\n`;
+  doc += `Consultant agrees to provide the following services ("Services"):\n\n${scope}\n\n`;
+
+  if (deliverables && deliverables !== '[not specified]') {
+    doc += `Key Deliverables:\n${deliverables}\n\n`;
+  }
+
+  if (maxHours && maxHours !== '[not specified]' && maxHours.toLowerCase() !== 'n/a') {
+    doc += `Consulting Hours: ${maxHours}\n\n`;
+  }
+
+  if (clientPOC && clientPOC !== '[not specified]') {
+    doc += `Client Point of Contact: ${clientPOC}\n\n`;
+  }
+
+  if (exclusions && exclusions !== '[not specified]') {
+    doc += `Out of Scope: The following are explicitly excluded from this Agreement:\n${exclusions}\n\n`;
+  }
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `2. TERM\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `This Agreement commences on ${startDate} and continues through ${endDate}, unless earlier terminated in accordance with this Agreement.\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `3. FEES AND PAYMENT\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Consulting Fee: ${totalFee} ${currency}\n\n`;
+  doc += `Payment Schedule:\n${milestones}\n\n`;
+  if (depositPct !== 'none') {
+    doc += `A retainer / deposit of ${depositPct}% is due upon signing this Agreement before work commences.\n\n`;
+  }
+  doc += `Invoices are due within Net ${paymentTerms} days of invoice date. Accepted payment methods: ${paymentMethods}.\n\n`;
+  doc += `Late Payments: Unpaid invoices accrue interest at ${lateFee} per month on the outstanding balance from the due date.\n\n`;
+
+  if (clauses.expenses) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `4. EXPENSE REIMBURSEMENT\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    if (expensePolicy === 'no_expenses') {
+      doc += `Consultant is responsible for all business expenses incurred in connection with the Services. No expense reimbursement will be provided.\n\n`;
+    } else {
+      doc += `Consultant will be reimbursed for reasonable, documented business expenses incurred in connection with the Services (including travel, accommodation, and approved software/tools).\n\n`;
+      if (expenseThreshold && expenseThreshold !== '[not specified]') {
+        doc += `Expense Approval: ${expenseThreshold}. Expenses below this threshold may be submitted without pre-approval.\n\n`;
+      }
+      doc += `Expense Billing: Expenses will be invoiced ${expenseCycle}, accompanied by original receipts or electronic copies. Undocumented expenses will not be reimbursed.\n\n`;
+    }
+  }
+
+  if (clauses.nda) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `5. CONFIDENTIALITY (MUTUAL NDA)\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Each Party ("Receiving Party") agrees to hold in strict confidence all non-public, proprietary, or sensitive information ("Confidential Information") disclosed by the other Party ("Disclosing Party") in connection with this Agreement. Confidential Information includes, without limitation: business strategies, financial data, customer lists, product roadmaps, trade secrets, and any information marked "Confidential."\n\n`;
+    doc += `Obligations:\n`;
+    doc += `  (a) Use Confidential Information solely for purposes of this Agreement;\n`;
+    doc += `  (b) Not disclose Confidential Information to any third party without prior written consent;\n`;
+    doc += `  (c) Protect Confidential Information with at least the same care used for own confidential information (not less than reasonable care).\n\n`;
+    doc += `These obligations survive termination of this Agreement for three (3) years. They do not apply to information that is: (i) publicly available through no fault of Receiving Party; (ii) rightfully received from a third party without restriction; (iii) independently developed without use of Confidential Information; or (iv) required to be disclosed by law or court order (with prompt prior notice to Disclosing Party).\n\n`;
+  }
+
+  if (clauses.deliverables) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `6. DELIVERABLE ACCEPTANCE\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Upon delivery of each deliverable, Client has seven (7) business days to review and either (a) accept in writing, or (b) reject with specific, written feedback identifying deficiencies relative to the agreed scope. If no response is received within seven (7) business days, the deliverable is deemed accepted.\n\n`;
+    doc += `Consultant will address reasonable, scope-consistent feedback. Feedback requesting changes outside the agreed scope will be handled as a Change Order with additional fees.\n\n`;
+  }
+
+  if (clauses.independence) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `7. INDEPENDENT CONTRACTOR\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Consultant is an independent contractor, not an employee, partner, or agent of Client. Client has no right to direct the manner, means, or methods by which Consultant performs the Services. Consultant is responsible for all taxes, insurance, and employment-related costs. Nothing in this Agreement creates an employment, joint venture, or partnership relationship.\n\n`;
+  }
+
+  if (clauses.ip) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `8. WORK PRODUCT OWNERSHIP\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Upon receipt of full payment, Consultant assigns to Client all rights, title, and interest in the custom deliverables created specifically for this engagement ("Work Product").\n\n`;
+    doc += `Consultant retains ownership of all pre-existing intellectual property, methodologies, frameworks, tools, templates, and know-how used to develop the Work Product ("Background IP"). Client receives a non-exclusive, royalty-free license to use Background IP solely as incorporated in the Work Product.\n\n`;
+  }
+
+  if (clauses.noncompete) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `9. LIMITED NON-COMPETE\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `During the term of this Agreement, Consultant agrees not to provide materially identical services to Client's direct, named competitors without Client's prior written consent. This restriction does not apply after the Agreement ends, nor does it restrict Consultant from serving clients in other industries or geographic markets.\n\n`;
+  }
+
+  if (clauses.nonsolicitation) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `10. NON-SOLICITATION\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `During the term of this Agreement and for twelve (12) months following termination, Client agrees not to directly solicit, hire, or engage any subcontractors or team members introduced by Consultant in connection with this engagement, without Consultant's prior written consent.\n\n`;
+  }
+
+  if (clauses.termination) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `11. TERMINATION\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Either Party may terminate this Agreement for any reason with fourteen (14) days written notice. Upon termination:\n`;
+    doc += `  (a) Client will pay for all Services rendered and expenses incurred through the termination date;\n`;
+    doc += `  (b) Any prepaid retainer amounts covering periods beyond the termination date will be refunded to Client on a pro-rata basis;\n`;
+    doc += `  (c) Consultant will deliver all completed work product upon receipt of final payment.\n\n`;
+    doc += `Either Party may terminate immediately upon material breach of this Agreement that is not cured within seven (7) days of written notice of the breach.\n\n`;
+  }
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `12. DISPUTE RESOLUTION\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Disputes will be addressed first by good-faith negotiation between senior representatives of each Party for thirty (30) days. If unresolved, the Parties agree to non-binding mediation, followed by binding arbitration under the rules of the American Arbitration Association (or equivalent), to be conducted in the ${govLaw}.\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `13. LIMITATION OF LIABILITY\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Consultant's total aggregate liability under this Agreement shall not exceed the total fees paid by Client in the three (3) months preceding the claim. In no event shall either Party be liable for indirect, incidental, consequential, punitive, or special damages.\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `14. GENERAL PROVISIONS\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Governing Law: This Agreement is governed by the laws of the ${govLaw}.\n`;
+  doc += `Entire Agreement: This Agreement constitutes the entire agreement between the Parties for this engagement and supersedes all prior discussions.\n`;
+  doc += `Amendment: Any modifications require written agreement signed by both Parties.\n`;
+  doc += `Severability: If any provision is found unenforceable, the remainder of the Agreement continues in full force.\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `SIGNATURES\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `CONSULTANT\nName: ${freelancer}\nSignature: _______________________________\nDate: ___________________\n\n`;
+  doc += `CLIENT\nName: ${client}\nAttention: ${clientContact}\nSignature: _______________________________\nDate: ___________________\n`;
+
+  document.getElementById('contract-output').textContent = doc;
+}
+
+async function copyContract() {
+  const text = document.getElementById('contract-output').textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy Text', 2000);
+  } catch (e) {
+    alert('Please use Ctrl+A, Ctrl+C to copy the contract text.');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('contract_date').value = new Date().toISOString().split('T')[0];
+});
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('nav-hamburger-btn');
+  var menu = document.getElementById('nav-mobile-menu');
+  if (!btn || !menu) return;
+  function toggleMenu(open) {
+    btn.classList.toggle('open', open);
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu(!menu.classList.contains('open'));
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { toggleMenu(false); });
+  });
+  document.addEventListener('click', function(e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn) {
+      toggleMenu(false);
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+})();
+</script>
+
+</body>
+</html>

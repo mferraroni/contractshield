@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Development Contract Generator — ContractShield</title>
+<meta name="description" content="Fill in your details and generate a professional web/app development contract in seconds. Covers IP ownership, milestones, bug fix period, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    background: #f8fafc;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  .container { width: 100%; max-width: 860px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 0;
+  }
+  .nav .container { display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-size: 20px; font-weight: 800; color: #1e40af; display: flex; align-items: center; gap: 8px; }
+  .nav-logo .shield-icon {
+    width: 28px; height: 28px; background: #1e40af; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px;
+  }
+  .nav-back { font-size: 14px; color: #64748b; display: flex; align-items: center; gap: 6px; }
+  .nav-back:hover { color: #1e40af; }
+
+  /* Header */
+  .page-header {
+    padding: 100px 0 40px;
+    background: linear-gradient(175deg, #eff6ff 0%, #f8fafc 60%);
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .template-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe;
+    padding: 5px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .page-header h1 { font-size: clamp(24px, 4vw, 36px); font-weight: 800; color: #0f172a; margin-bottom: 10px; letter-spacing: -0.02em; }
+  .page-header p { font-size: 16px; color: #475569; max-width: 560px; }
+
+  /* Progress bar */
+  .progress-bar {
+    background: #fff; border-bottom: 1px solid #e2e8f0; padding: 16px 0;
+    position: sticky; top: 61px; z-index: 90;
+  }
+  .progress-steps { display: flex; align-items: center; gap: 0; }
+  .step {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: #94a3b8;
+    flex: 1; cursor: pointer; padding: 8px 12px; border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .step.active { color: #1e40af; background: #eff6ff; }
+  .step.done { color: #16a34a; }
+  .step-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: #e2e8f0; color: #94a3b8;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .step.active .step-num { background: #1e40af; color: #fff; }
+  .step.done .step-num { background: #16a34a; color: #fff; }
+  .step-divider { width: 20px; flex-shrink: 0; height: 1px; background: #e2e8f0; }
+
+  /* Main layout */
+  .main { padding: 40px 0 80px; }
+  .form-card {
+    background: #fff; border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    padding: 40px;
+    display: none;
+  }
+  .form-card.active { display: block; }
+  .section-title {
+    font-size: 20px; font-weight: 700; color: #0f172a;
+    margin-bottom: 6px;
+  }
+  .section-desc {
+    font-size: 14px; color: #64748b; margin-bottom: 28px;
+  }
+
+  /* Form fields */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .form-row.full { grid-template-columns: 1fr; }
+  .form-row.triple { grid-template-columns: 1fr 1fr 1fr; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13px; font-weight: 600; color: #374151; }
+  .field .hint { font-size: 12px; color: #94a3b8; margin-top: -4px; }
+  .field input, .field select, .field textarea {
+    padding: 10px 14px; border: 1.5px solid #e2e8f0;
+    border-radius: 8px; font-size: 14px; color: #1e293b;
+    font-family: inherit; background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: #1e40af; box-shadow: 0 0 0 3px rgba(30,64,175,0.08);
+  }
+  .field input::placeholder, .field textarea::placeholder { color: #cbd5e1; }
+  .field textarea { resize: vertical; min-height: 90px; }
+  .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px; padding-right: 36px; }
+
+  /* Clause toggles */
+  .clause-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .clause-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px; border-radius: 10px; border: 1.5px solid #e2e8f0;
+    cursor: pointer; transition: all 0.15s; background: #fff;
+  }
+  .clause-item:hover { border-color: #bfdbfe; background: #f0f9ff; }
+  .clause-item.checked { border-color: #1e40af; background: #eff6ff; }
+  .clause-checkbox {
+    width: 20px; height: 20px; border: 2px solid #cbd5e1;
+    border-radius: 5px; flex-shrink: 0; margin-top: 1px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .clause-item.checked .clause-checkbox { background: #1e40af; border-color: #1e40af; }
+  .clause-checkbox-inner { display: none; color: #fff; font-size: 13px; font-weight: 700; }
+  .clause-item.checked .clause-checkbox-inner { display: block; }
+  .clause-text h4 { font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 2px; }
+  .clause-text p { font-size: 13px; color: #64748b; }
+  .clause-badge {
+    margin-left: auto; flex-shrink: 0;
+    background: #fef3c7; color: #92400e;
+    font-size: 11px; font-weight: 700; padding: 3px 8px;
+    border-radius: 100px;
+  }
+
+  /* Nav buttons */
+  .form-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 32px; padding-top: 24px; border-top: 1px solid #f1f5f9; }
+  .btn-back {
+    padding: 10px 22px; border-radius: 8px;
+    border: 1.5px solid #e2e8f0; background: #fff;
+    font-size: 14px; font-weight: 600; color: #64748b;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .btn-back:hover { border-color: #94a3b8; color: #374151; }
+  .btn-next {
+    padding: 10px 28px; border-radius: 8px;
+    background: #1e40af; color: #fff;
+    font-size: 14px; font-weight: 700;
+    cursor: pointer; border: none;
+    transition: background 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-next:hover { background: #1e3a8a; }
+  .btn-generate {
+    padding: 12px 32px; border-radius: 10px;
+    background: #16a34a; color: #fff;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer; border: none;
+    transition: background 0.2s;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .btn-generate:hover { background: #15803d; }
+
+  /* Preview pane */
+  .preview-wrap { display: none; }
+  .preview-wrap.active { display: block; }
+  .preview-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px; flex-wrap: gap;
+  }
+  .preview-header h2 { font-size: 20px; font-weight: 700; color: #0f172a; }
+  .preview-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-print {
+    padding: 10px 22px; border-radius: 8px;
+    border: 1.5px solid #1e40af; color: #1e40af; background: #fff;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 6px; transition: all 0.2s;
+  }
+  .btn-print:hover { background: #eff6ff; }
+  .btn-copy {
+    padding: 10px 22px; border-radius: 8px;
+    background: #1e40af; color: #fff;
+    font-size: 14px; font-weight: 700; cursor: pointer; border: none;
+    display: flex; align-items: center; gap: 6px; transition: all 0.2s;
+  }
+  .btn-copy:hover { background: #1e3a8a; }
+  .btn-upgrade {
+    padding: 10px 22px; border-radius: 8px;
+    background: linear-gradient(135deg, #7c3aed, #4f46e5);
+    color: #fff; font-size: 14px; font-weight: 700;
+    cursor: pointer; border: none; display: flex; align-items: center; gap: 6px;
+    transition: opacity 0.2s;
+  }
+  .btn-upgrade:hover { opacity: 0.9; }
+  .contract-doc {
+    background: #fff; border: 1px solid #e2e8f0;
+    border-radius: 12px; padding: 48px 52px;
+    font-family: 'Georgia', serif; font-size: 14px;
+    line-height: 1.75; color: #1e293b;
+    white-space: pre-wrap;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .contract-doc h2 { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 6px; font-family: inherit; }
+  .contract-doc .subtitle { text-align: center; color: #64748b; margin-bottom: 32px; font-size: 13px; }
+  .contract-section { margin-bottom: 24px; }
+  .contract-section h3 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #0f172a; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 6px; }
+  .contract-section p { margin-bottom: 10px; color: #374151; }
+  .blank { color: #1e40af; font-weight: 600; border-bottom: 1px solid #93c5fd; }
+
+  /* Upsell banner */
+  .upsell-banner {
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    border-radius: 14px; padding: 24px 28px;
+    margin-top: 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    flex-wrap: wrap;
+  }
+  .upsell-banner h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .upsell-banner p { font-size: 13px; color: rgba(255,255,255,0.8); }
+  .btn-upsell {
+    padding: 10px 24px; border-radius: 8px;
+    background: #fff; color: #4f46e5;
+    font-size: 14px; font-weight: 700; cursor: pointer; border: none;
+    white-space: nowrap; flex-shrink: 0; transition: opacity 0.2s;
+  }
+  .btn-upsell:hover { opacity: 0.92; }
+
+  @media (max-width: 640px) {
+    .form-row { grid-template-columns: 1fr; }
+    .form-row.triple { grid-template-columns: 1fr; }
+    .form-card { padding: 24px; }
+    .progress-steps { gap: 0; overflow-x: auto; }
+    .step-label { display: none; }
+    .contract-doc { padding: 24px; }
+  }
+
+  @media print {
+    .nav, .progress-bar, .upsell-banner, .preview-actions, .page-header { display: none !important; }
+    body { background: #fff; }
+    .contract-doc { border: none; box-shadow: none; padding: 0; }
+    .main { padding: 0; }
+  }
+
+  /* ── Hamburger / Mobile Nav ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+   <nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo"><span class="shield-icon">⛨</span>
+      ContractShield</a>
+    <a href="/templates" class="nav-back">
+      ← Back to Templates
+    </a>
+    <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="/">Home</a>
+  <a href="/templates">Free Templates</a>
+  <a href="/blog">Blog</a>
+  <a href="/#pricing" class="nav-mobile-cta">Get Early Access</a>
+</div>n {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1e40af;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 57px;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 99;
+    flex-direction: column;
+    padding: 8px 0 16px;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.10);
+    animation: slideDown 0.2s ease;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav-mobile-menu a {
+    display: block;
+    padding: 13px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e40af;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+  }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  .nav-mobile-menu a:hover { background: #eff6ff; }
+  .nav-mobile-menu .nav-mobile-cta {
+    margin: 8px 24px 0;
+    padding: 12px 20px;
+    background: #1e40af;
+    color: #fff !important;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: none !important;
+  }
+  .nav-mobile-menu .nav-mobile-cta:hover { background: #1e3a8a !important; }
+
+  @media (max-width: 767px) {
+    .nav-hamburger { display: flex; }
+    .nav-links, .nav-desktop-links { display: none !important; }
+    .nav-cta { display: none !important; }
+    .nav-back { display: none !important; }
+  }
+  @media (min-width: 768px) {
+    .nav-mobile-menu { display: none !important; }
+  }
+
+</style>
+<!-- Vercel Analytics -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo">
+      <span class="shield-icon">⛨</span>
+      ContractShield
+    </a>
+    <a href="/templates" class="nav-back">
+      ← Back to Templates
+    </a>
+  </div>
+</nav>
+
+<!-- Header -->
+<div class="page-header">
+  <div class="container">
+    <div class="template-badge">💻 Web / App Development</div>
+    <h1>Web Dev Contract Generator</h1>
+    <p>Fill in your project details and get a professional contract in under 2 minutes. Covers IP, milestones, bug fix period, and ghost-client protections.</p>
+  </div>
+</div>
+
+<!-- Progress -->
+<div class="progress-bar">
+  <div class="container">
+    <div class="progress-steps">
+      <div class="step active" id="step-tab-1" onclick="goToStep(1)">
+        <div class="step-num">1</div>
+        <span class="step-label">Parties</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-2" onclick="goToStep(2)">
+        <div class="step-num">2</div>
+        <span class="step-label">Project</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-3" onclick="goToStep(3)">
+        <div class="step-num">3</div>
+        <span class="step-label">Payment</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-4" onclick="goToStep(4)">
+        <div class="step-num">4</div>
+        <span class="step-label">Clauses</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step" id="step-tab-5" onclick="goToStep(5)">
+        <div class="step-num">5</div>
+        <span class="step-label">Preview</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="container">
+
+    <!-- Step 1: Parties -->
+    <div class="form-card active" id="step-1">
+      <div class="section-title">Who are the parties?</div>
+      <div class="section-desc">Enter your details and your client's details.</div>
+      <div class="form-row">
+        <div class="field">
+          <label>Your Full Name / Business Name</label>
+          <input type="text" id="freelancer_name" placeholder="e.g. Jane Doe / Acme Dev LLC" />
+        </div>
+        <div class="field">
+          <label>Your Address</label>
+          <input type="text" id="freelancer_address" placeholder="e.g. 123 Main St, New York, NY 10001" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Your Email</label>
+          <input type="email" id="freelancer_email" placeholder="you@example.com" />
+        </div>
+        <div class="field">
+          <label>Your State / Country</label>
+          <input type="text" id="freelancer_state" placeholder="e.g. New York, USA" />
+        </div>
+      </div>
+      <div style="border-top: 1px solid #f1f5f9; margin: 24px 0;"></div>
+      <div class="form-row">
+        <div class="field">
+          <label>Client Full Name / Company Name</label>
+          <input type="text" id="client_name" placeholder="e.g. TechStartup Inc." />
+        </div>
+        <div class="field">
+          <label>Client Address</label>
+          <input type="text" id="client_address" placeholder="e.g. 456 Oak Ave, San Francisco, CA" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Client Email</label>
+          <input type="email" id="client_email" placeholder="client@company.com" />
+        </div>
+        <div class="field">
+          <label>Client Contact Name</label>
+          <input type="text" id="client_contact" placeholder="e.g. John Smith (CEO)" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Contract Date</label>
+          <input type="date" id="contract_date" />
+        </div>
+        <div class="field">
+          <label>Governing Law (State/Country)</label>
+          <input type="text" id="governing_law" placeholder="e.g. State of New York" />
+        </div>
+      </div>
+      <div class="form-nav">
+        <div></div>
+        <button class="btn-next" onclick="goToStep(2)">Next: Project Details →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Project -->
+    <div class="form-card" id="step-2">
+      <div class="section-title">Project Details</div>
+      <div class="section-desc">Define what you are building and the timeline.</div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Project Name</label>
+          <input type="text" id="project_name" placeholder="e.g. E-commerce Website Redesign" />
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Project Description / Scope of Work</label>
+          <span class="hint">Be specific. List the main deliverables.</span>
+          <textarea id="project_scope" rows="5" placeholder="e.g. Design and develop a 10-page responsive website using React and Node.js, including: home page, about, services, contact form, and e-commerce store with up to 50 products. Includes 1 round of revisions per page."></textarea>
+        </div>
+      </div>
+      <div class="form-row triple">
+        <div class="field">
+          <label>Project Start Date</label>
+          <input type="date" id="start_date" />
+        </div>
+        <div class="field">
+          <label>Project End Date</label>
+          <input type="date" id="end_date" />
+        </div>
+        <div class="field">
+          <label>Number of Revision Rounds</label>
+          <select id="revisions">
+            <option value="1">1 round</option>
+            <option value="2" selected>2 rounds</option>
+            <option value="3">3 rounds</option>
+            <option value="unlimited">Unlimited (not recommended)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Technologies / Stack</label>
+          <input type="text" id="tech_stack" placeholder="e.g. React, Node.js, PostgreSQL, AWS" />
+        </div>
+        <div class="field">
+          <label>Bug Fix Period After Launch</label>
+          <select id="bug_fix_period">
+            <option value="14">14 days</option>
+            <option value="30" selected>30 days</option>
+            <option value="60">60 days</option>
+            <option value="90">90 days</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Deliverables Not Included (Exclusions)</label>
+          <span class="hint">List what is explicitly out of scope.</span>
+          <textarea id="exclusions" rows="3" placeholder="e.g. Mobile app development, ongoing maintenance, third-party API integrations beyond those listed, SEO optimization, copywriting"></textarea>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(1)">← Back</button>
+        <button class="btn-next" onclick="goToStep(3)">Next: Payment →</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Payment -->
+    <div class="form-card" id="step-3">
+      <div class="section-title">Payment Terms</div>
+      <div class="section-desc">Set your rate, deposit, and milestone schedule.</div>
+      <div class="form-row triple">
+        <div class="field">
+          <label>Total Project Fee</label>
+          <input type="text" id="total_fee" placeholder="e.g. $5,000" />
+        </div>
+        <div class="field">
+          <label>Currency</label>
+          <select id="currency">
+            <option value="USD">USD ($)</option>
+            <option value="EUR">EUR (€)</option>
+            <option value="GBP">GBP (£)</option>
+            <option value="CAD">CAD</option>
+            <option value="AUD">AUD</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Upfront Deposit %</label>
+          <select id="deposit_pct">
+            <option value="25">25%</option>
+            <option value="33">33%</option>
+            <option value="50" selected>50%</option>
+            <option value="100">100% upfront</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Invoice Payment Terms</label>
+          <select id="payment_terms">
+            <option value="7">Net 7 (7 days)</option>
+            <option value="14" selected>Net 14 (14 days)</option>
+            <option value="30">Net 30 (30 days)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Late Payment Fee</label>
+          <select id="late_fee">
+            <option value="1">1% per month</option>
+            <option value="1.5" selected>1.5% per month</option>
+            <option value="2">2% per month</option>
+            <option value="flat_25">$25 flat per month</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row full">
+        <div class="field">
+          <label>Milestone Payment Schedule</label>
+          <span class="hint">Describe when each payment is due. One milestone per line.</span>
+          <textarea id="milestones" rows="4" placeholder="50% deposit due upon signing&#10;25% due upon design approval (end of Phase 1)&#10;25% remaining balance due upon final delivery and approval"></textarea>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label>Accepted Payment Methods</label>
+          <input type="text" id="payment_methods" placeholder="e.g. Bank transfer, PayPal, Stripe" />
+        </div>
+        <div class="field">
+          <label>Kill Fee (if client cancels mid-project)</label>
+          <select id="kill_fee">
+            <option value="none">None</option>
+            <option value="25">25% of remaining balance</option>
+            <option value="50" selected>50% of remaining balance</option>
+            <option value="100">100% of work completed to date</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(2)">← Back</button>
+        <button class="btn-next" onclick="goToStep(4)">Next: Clauses →</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Clauses -->
+    <div class="form-card" id="step-4">
+      <div class="section-title">Contract Clauses</div>
+      <div class="section-desc">Choose which protective clauses to include. We recommend all checked by default.</div>
+      <div class="clause-list">
+        <div class="clause-item checked" id="clause-ip" onclick="toggleClause('ip')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>IP Ownership Transfer</h4>
+            <p>All intellectual property transfers to client only upon receipt of full payment. You retain ownership until the final invoice is paid.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-hosting" onclick="toggleClause('hosting')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Hosting Handover</h4>
+            <p>Client is responsible for providing hosting credentials and paying hosting costs. Developer will assist with one deployment handover.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-bugfix" onclick="toggleClause('bugfix')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Post-Launch Bug Fix Period</h4>
+            <p>Developer will fix bugs (not new features) at no extra charge during the warranty period. After expiry, maintenance is billed separately.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-scope" onclick="toggleClause('scope')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Scope Change / Change Orders</h4>
+            <p>Any changes to scope after signing require a written Change Order with updated timeline and fees. Work stops until the Change Order is approved.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-delay" onclick="toggleClause('delay')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Client Delay Protection</h4>
+            <p>If client delays providing content, feedback, or approvals for more than 14 days, the timeline extends accordingly and a pause fee may apply.</p>
+          </div>
+          <span class="clause-badge">Recommended</span>
+        </div>
+        <div class="clause-item checked" id="clause-conf" onclick="toggleClause('conf')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Confidentiality (NDA)</h4>
+            <p>Both parties agree not to disclose confidential information shared during the project. Includes business data, source code, and trade secrets.</p>
+          </div>
+        </div>
+        <div class="clause-item checked" id="clause-portfolio" onclick="toggleClause('portfolio')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Portfolio Rights</h4>
+            <p>Developer may display the completed project in their portfolio and case studies unless client requests otherwise in writing.</p>
+          </div>
+        </div>
+        <div class="clause-item" id="clause-nonsolicitation" onclick="toggleClause('nonsolicitation')">
+          <div class="clause-checkbox"><span class="clause-checkbox-inner">✓</span></div>
+          <div class="clause-text">
+            <h4>Non-Solicitation</h4>
+            <p>Client agrees not to hire developer's subcontractors or team members directly for 12 months after project completion.</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(3)">← Back</button>
+        <button class="btn-generate" onclick="generateContract()">⚡ Generate Contract →</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Preview -->
+    <div class="form-card" id="step-5">
+      <div class="preview-header">
+        <h2>📄 Your Contract</h2>
+        <div class="preview-actions">
+          <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+          <button class="btn-copy" onclick="copyContract()" id="copy-btn">📋 Copy Text</button>
+          <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" target="_blank">
+            <button class="btn-upgrade">⚡ AI Review — $10</button>
+          </a>
+        </div>
+      </div>
+      <div class="contract-doc" id="contract-output">
+      </div>
+      <div class="upsell-banner">
+        <div>
+          <h3>Want AI to review this contract for risky clauses?</h3>
+          <p>ContractShield AI flags what clients try to sneak past you — liability caps, IP grabs, non-competes, and payment tricks.</p>
+        </div>
+        <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" target="_blank">
+          <button class="btn-upsell">Get AI Review — $10 →</button>
+        </a>
+      </div>
+      <div class="form-nav">
+        <button class="btn-back" onclick="goToStep(4)">← Edit Clauses</button>
+        <button class="btn-print" onclick="window.print()">🖨 Print / Save PDF</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let currentStep = 1;
+const totalSteps = 5;
+
+const clauses = {
+  ip: true, hosting: true, bugfix: true, scope: true,
+  delay: true, conf: true, portfolio: true, nonsolicitation: false
+};
+
+function goToStep(n) {
+  if (n < 1 || n > totalSteps) return;
+  document.getElementById('step-' + currentStep).classList.remove('active');
+  document.getElementById('step-tab-' + currentStep).classList.remove('active');
+  if (currentStep < n) document.getElementById('step-tab-' + currentStep).classList.add('done');
+  currentStep = n;
+  document.getElementById('step-' + n).classList.add('active');
+  document.getElementById('step-tab-' + n).classList.add('active');
+  document.getElementById('step-tab-' + n).classList.remove('done');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleClause(key) {
+  clauses[key] = !clauses[key];
+  const el = document.getElementById('clause-' + key);
+  el.classList.toggle('checked', clauses[key]);
+}
+
+function v(id, fallback) {
+  const el = document.getElementById(id);
+  if (!el) return fallback || '[not specified]';
+  const val = el.value.trim();
+  return val || fallback || '[not specified]';
+}
+
+function generateContract() {
+  goToStep(5);
+
+  const freelancer = v('freelancer_name');
+  const freelancerAddr = v('freelancer_address');
+  const freelancerEmail = v('freelancer_email');
+  const client = v('client_name');
+  const clientAddr = v('client_address');
+  const clientEmail = v('client_email');
+  const clientContact = v('client_contact');
+  const contractDate = v('contract_date') === '[not specified]' ? new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'}) : new Date(v('contract_date') + 'T00:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  const govLaw = v('governing_law');
+  const projectName = v('project_name');
+  const scope = v('project_scope');
+  const startDate = v('start_date') === '[not specified]' ? '[Start Date]' : new Date(v('start_date') + 'T00:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  const endDate = v('end_date') === '[not specified]' ? '[End Date]' : new Date(v('end_date') + 'T00:00:00').toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+  const revisions = v('revisions');
+  const techStack = v('tech_stack');
+  const bugFixDays = v('bug_fix_period');
+  const exclusions = v('exclusions');
+  const totalFee = v('total_fee');
+  const currency = v('currency');
+  const depositPct = v('deposit_pct');
+  const paymentTerms = v('payment_terms');
+  const lateFee = v('late_fee');
+  const milestones = v('milestones');
+  const paymentMethods = v('payment_methods');
+  const killFee = v('kill_fee');
+
+  let doc = '';
+
+  doc += `WEB / APP DEVELOPMENT AGREEMENT\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `This Web / App Development Agreement ("Agreement") is entered into as of ${contractDate}, between:\n\n`;
+  doc += `DEVELOPER: ${freelancer}\n`;
+  doc += `Address: ${freelancerAddr}\n`;
+  doc += `Email: ${freelancerEmail}\n\n`;
+  doc += `CLIENT: ${client}\n`;
+  doc += `Address: ${clientAddr}\n`;
+  doc += `Email: ${clientEmail}\n`;
+  doc += `Attention: ${clientContact}\n\n`;
+  doc += `(each a "Party," collectively the "Parties")\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `1. PROJECT SCOPE\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Project Name: ${projectName}\n\n`;
+  doc += `The Developer agrees to design and develop the following deliverables ("Project"):\n\n${scope}\n\n`;
+  doc += `Technologies / Stack: ${techStack}\n\n`;
+  doc += `Revision Policy: The Agreement includes ${revisions === 'unlimited' ? 'unlimited revision rounds (not recommended; see Change Orders)' : revisions + ' round(s) of revisions per deliverable'}. Additional revision rounds requested beyond the included rounds will be billed at the Developer's standard hourly rate.\n\n`;
+
+  if (exclusions && exclusions !== '[not specified]') {
+    doc += `The following are explicitly excluded from this Agreement and will require a separate Change Order if needed:\n${exclusions}\n\n`;
+  }
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `2. TIMELINE\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Project Start Date: ${startDate}\n`;
+  doc += `Estimated Completion Date: ${endDate}\n\n`;
+  doc += `Timelines are contingent on the Client providing timely feedback, content, and approvals as outlined in Section 7 (Client Responsibilities).\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `3. FEES AND PAYMENT\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Total Project Fee: ${totalFee} ${currency}\n\n`;
+  doc += `Payment Schedule:\n${milestones}\n\n`;
+  doc += `A non-refundable deposit of ${depositPct}% is due upon signing this Agreement before work commences.\n\n`;
+  doc += `All invoices are due within Net ${paymentTerms} days of the invoice date. Payments accepted via: ${paymentMethods}.\n\n`;
+  doc += `Late Payments: Invoices unpaid after the due date will accrue a late fee of ${lateFee} on the outstanding balance. Developer reserves the right to suspend all work until overdue amounts are settled.\n\n`;
+
+  if (killFee !== 'none') {
+    doc += `Cancellation / Kill Fee: If Client cancels this Agreement after work has commenced, Client agrees to pay ${killFee} in addition to any amounts already paid, to compensate for work completed and opportunity costs incurred.\n\n`;
+  }
+
+  if (clauses.ip) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `4. INTELLECTUAL PROPERTY\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Upon receipt of full and final payment, Developer assigns to Client all rights, title, and interest in the original work product created specifically for this Project ("Work Product"), including copyright.\n\n`;
+    doc += `Until full payment is received, Developer retains all ownership of the Work Product. Client may not use, deploy, distribute, or commercialize any deliverable until payment is complete.\n\n`;
+    doc += `Developer retains the right to use any pre-existing tools, frameworks, libraries, or code ("Background IP") which are incorporated into the Project. A non-exclusive, royalty-free license to such Background IP is granted to Client for use within the deliverables.\n\n`;
+  }
+
+  if (clauses.hosting) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `5. HOSTING AND DEPLOYMENT\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Client is solely responsible for procuring and paying for hosting, domain registration, and any third-party services required to run the Project. Developer will provide one (1) assisted deployment handover. Additional deployments or ongoing hosting management are billable separately.\n\n`;
+  }
+
+  if (clauses.bugfix) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `6. WARRANTY AND BUG FIX PERIOD\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Developer warrants that the delivered Project will function substantially as described in the Scope of Work for a period of ${bugFixDays} days following final delivery ("Warranty Period"). During this period, Developer will correct any confirmed bugs at no additional charge.\n\n`;
+    doc += `This warranty does not cover: new feature requests, issues caused by Client modifications, third-party service failures, or browser/OS incompatibilities not present at delivery. After expiry, maintenance and bug fixes are billed at Developer's standard hourly rate.\n\n`;
+  }
+
+  if (clauses.scope) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `7. SCOPE CHANGES AND CHANGE ORDERS\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Any request to add features, change functionality, or alter deliverables beyond the original Scope of Work constitutes a Change Order. Developer will provide a written Change Order with revised timeline and additional fees. Work on the Change Order will not commence until Client approves it in writing.\n\n`;
+  }
+
+  if (clauses.delay) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `8. CLIENT RESPONSIBILITIES AND DELAYS\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Client agrees to provide all content, assets, credentials, and feedback required within a reasonable time. If Client fails to provide required materials or approvals within fourteen (14) calendar days of request, the project timeline will extend by the same number of days delayed. Developer reserves the right to charge a project hold fee of 10% of the remaining balance per additional month of delay.\n\n`;
+  }
+
+  if (clauses.conf) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `9. CONFIDENTIALITY\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Both Parties agree to keep confidential all non-public information disclosed during the course of this Agreement ("Confidential Information"), including but not limited to business plans, source code, customer data, pricing, and trade secrets. This obligation survives termination of this Agreement for a period of three (3) years. Confidential Information does not include information that is publicly available, independently developed, or required to be disclosed by law.\n\n`;
+  }
+
+  if (clauses.portfolio) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `10. PORTFOLIO RIGHTS\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Developer reserves the right to display the completed Project in their portfolio, case studies, and promotional materials. Client may request in writing that specific items be kept confidential, in which case Developer agrees not to disclose those materials.\n\n`;
+  }
+
+  if (clauses.nonsolicitation) {
+    doc += `─────────────────────────────────────────────────────\n`;
+    doc += `11. NON-SOLICITATION\n`;
+    doc += `─────────────────────────────────────────────────────\n\n`;
+    doc += `Client agrees not to directly solicit, hire, or contract with any subcontractors or team members introduced by Developer in connection with this Project for a period of twelve (12) months following the completion or termination of this Agreement.\n\n`;
+  }
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `12. TERMINATION\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Either Party may terminate this Agreement with fourteen (14) days written notice. Upon termination, Client will pay for all work completed to date plus any applicable Kill Fee as defined in Section 3. Developer will deliver all completed work product upon receipt of final payment.\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `13. DISPUTE RESOLUTION\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `The Parties agree to first attempt to resolve any dispute by good-faith negotiation. If unresolved within thirty (30) days, the dispute will be submitted to non-binding mediation. If mediation fails, the dispute will be settled by binding arbitration in accordance with the rules of the American Arbitration Association (or equivalent in the applicable jurisdiction).\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `14. LIMITATION OF LIABILITY\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Developer's total liability under this Agreement shall not exceed the total fees paid by Client under this Agreement. In no event shall Developer be liable for any indirect, incidental, or consequential damages.\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `15. GENERAL PROVISIONS\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `Governing Law: This Agreement is governed by the laws of the ${govLaw}.\n\n`;
+  doc += `Entire Agreement: This Agreement constitutes the entire agreement between the Parties and supersedes all prior communications regarding the Project.\n\n`;
+  doc += `Amendment: Any amendments must be in writing and signed by both Parties.\n\n`;
+  doc += `Independent Contractor: Developer is an independent contractor, not an employee of Client.\n\n`;
+
+  doc += `─────────────────────────────────────────────────────\n`;
+  doc += `SIGNATURES\n`;
+  doc += `─────────────────────────────────────────────────────\n\n`;
+  doc += `By signing below, both Parties agree to the terms of this Agreement.\n\n`;
+  doc += `DEVELOPER\n`;
+  doc += `Name: ${freelancer}\n`;
+  doc += `Signature: _______________________________\n`;
+  doc += `Date: ___________________\n\n`;
+  doc += `CLIENT\n`;
+  doc += `Name: ${client}\n`;
+  doc += `Attention: ${clientContact}\n`;
+  doc += `Signature: _______________________________\n`;
+  doc += `Date: ___________________\n`;
+
+  document.getElementById('contract-output').textContent = doc;
+}
+
+async function copyContract() {
+  const text = document.getElementById('contract-output').textContent;
+  try {
+    await navigator.clipboard.writeText(text);
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = '📋 Copy Text', 2000);
+  } catch (e) {
+    alert('Please use Ctrl+A, Ctrl+C to copy the contract text.');
+  }
+}
+
+// Default contract date to today
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('contract_date').value = today;
+});
+</script>
+
+<script>
+(function() {
+  var btn = document.getElementById('nav-hamburger-btn');
+  var menu = document.getElementById('nav-mobile-menu');
+  if (!btn || !menu) return;
+  function toggleMenu(open) {
+    btn.classList.toggle('open', open);
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu(!menu.classList.contains('open'));
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { toggleMenu(false); });
+  });
+  document.addEventListener('click', function(e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn) {
+      toggleMenu(false);
+    }
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+})();
+</script>
+
+</body>
+</html>

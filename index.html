@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ContractShield — Protect Your Freelance Income</title>
+<meta name="description" content="AI-powered contract protection for freelancers. Stop losing money to client disputes, scope creep, and unpaid invoices.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & Base ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    background: #fff;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+
+  /* ── Utility ── */
+  .container { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Nav ── */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    padding: 16px 0;
+  }
+  .nav .container { display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo {
+    font-size: 20px; font-weight: 800; color: #1e40af;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo .shield-icon {
+    width: 28px; height: 28px; background: #1e40af; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 16px;
+  }
+  .nav-cta {
+    background: #1e40af; color: #fff; padding: 10px 20px;
+    border-radius: 8px; font-size: 14px; font-weight: 600;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #1e3a8a; }
+
+  /* ── Hamburger / Mobile Nav ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .nav-hamburger:hover { background: rgba(30,64,175,0.08); }
+  .nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: #1e40af;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile-menu {
+    display: none;
+    position: fixed;
+    top: 57px;
+    left: 0;
+    right: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 99;
+    flex-direction: column;
+    padding: 8px 0 16px;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.10);
+    animation: slideDown 0.2s ease;
+  }
+  .nav-mobile-menu.open { display: flex; }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .nav-mobile-menu a {
+    display: block;
+    padding: 13px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e40af;
+    text-decoration: none;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.15s;
+  }
+  .nav-mobile-menu a:last-child { border-bottom: none; }
+  .nav-mobile-menu a:hover { background: #eff6ff; }
+  .nav-mobile-menu .nav-mobile-cta {
+    margin: 8px 24px 0;
+    padding: 12px 20px;
+    background: #1e40af;
+    color: #fff !important;
+    border-radius: 8px;
+    text-align: center;
+    border-bottom: none !important;
+  }
+  .nav-mobile-menu .nav-mobile-cta:hover { background: #1e3a8a !important; }
+
+  @media (max-width: 767px) {
+    .nav-hamburger { display: flex; }
+    .nav-links, .nav-desktop-links { display: none !important; }
+    .nav-cta { display: none !important; }
+    .nav-back { display: none !important; }
+  }
+  @media (min-width: 768px) {
+    .nav-mobile-menu { display: none !important; }
+  }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 120px 0 80px;
+    background: linear-gradient(175deg, #eff6ff 0%, #fff 60%);
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 13px; font-weight: 600;
+    margin-bottom: 28px;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px; background: #f59e0b;
+    border-radius: 50%; animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5.5vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: #0f172a;
+    max-width: 740px;
+    margin: 0 auto 20px;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .highlight {
+    color: #1e40af;
+    position: relative;
+  }
+  .hero h1 .highlight::after {
+    content: '';
+    position: absolute; left: 0; bottom: 2px; width: 100%; height: 6px;
+    background: #bfdbfe; border-radius: 3px; z-index: -1;
+  }
+  .hero-sub {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: #475569;
+    max-width: 560px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+  .hero-cta-group { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #1e40af; color: #fff;
+    padding: 16px 36px; border-radius: 10px;
+    font-size: 17px; font-weight: 700;
+    border: none; cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(30,64,175,0.3);
+  }
+  .btn-primary:hover {
+    background: #1e3a8a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(30,64,175,0.35);
+  }
+  .btn-primary .arrow { transition: transform 0.2s; }
+  .btn-primary:hover .arrow { transform: translateX(3px); }
+  .hero-note {
+    font-size: 13px; color: #94a3b8;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hero-note svg { flex-shrink: 0; }
+
+  /* ── Discount Banner ── */
+  .discount-banner {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    color: #fff;
+    padding: 32px 0;
+    text-align: center;
+  }
+  .discount-inner {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+  .discount-tag {
+    background: rgba(255,255,255,0.2);
+    padding: 6px 16px; border-radius: 100px;
+    font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .discount-headline {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 800;
+    line-height: 1.2;
+  }
+  .discount-headline .pct { color: #fbbf24; }
+  .discount-detail {
+    font-size: 16px; opacity: 0.9; max-width: 480px;
+  }
+
+  /* ── Problem Section ── */
+  .problem {
+    padding: 80px 0;
+    background: #f8fafc;
+  }
+  .problem-label {
+    text-align: center;
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #dc2626;
+    margin-bottom: 12px;
+  }
+  .problem h2 {
+    text-align: center;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 800; color: #0f172a;
+    margin-bottom: 48px;
+    letter-spacing: -0.01em;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .problem-card {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: #fff;
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+  .problem-icon {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: #fef2f2;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .problem-card h3 { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+  .problem-card p { font-size: 14px; color: #64748b; line-height: 1.5; }
+
+  /* ── Benefits ── */
+  .benefits {
+    padding: 80px 0;
+  }
+  .section-label {
+    text-align: center;
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #1e40af;
+    margin-bottom: 12px;
+  }
+  .benefits h2 {
+    text-align: center;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 800; color: #0f172a;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+  .benefits .section-sub {
+    text-align: center;
+    font-size: 17px; color: #64748b;
+    max-width: 520px; margin: 0 auto 48px;
+  }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .benefit-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 32px 28px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .benefit-card:hover {
+    border-color: #bfdbfe;
+    box-shadow: 0 4px 20px rgba(30,64,175,0.06);
+  }
+  .benefit-icon {
+    width: 52px; height: 52px;
+    background: #eff6ff;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .benefit-card h3 {
+    font-size: 19px; font-weight: 700; color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .benefit-card p {
+    font-size: 15px; color: #64748b; line-height: 1.6;
+  }
+
+  /* ── How It Works ── */
+  .how {
+    padding: 80px 0;
+    background: #f8fafc;
+  }
+  .how h2 {
+    text-align: center;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 800; color: #0f172a;
+    margin-bottom: 48px;
+  }
+  .steps {
+    display: grid; grid-template-columns: 1fr; gap: 32px;
+    max-width: 800px; margin: 0 auto;
+  }
+  .step {
+    display: flex; align-items: flex-start; gap: 20px;
+  }
+  .step-num {
+    flex-shrink: 0;
+    width: 44px; height: 44px;
+    background: #1e40af; color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 800;
+  }
+  .step h3 { font-size: 17px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+  .step p { font-size: 15px; color: #64748b; }
+
+  /* ── Social Proof ── */
+  .proof {
+    padding: 80px 0;
+  }
+  .proof h2 {
+    text-align: center;
+    font-size: clamp(24px, 3.5vw, 36px);
+    font-weight: 800; color: #0f172a;
+    margin-bottom: 48px;
+  }
+  .testimonials {
+    display: grid; grid-template-columns: 1fr; gap: 24px;
+    max-width: 900px; margin: 0 auto;
+  }
+  .testimonial {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 28px;
+  }
+  .testimonial .stars { color: #f59e0b; font-size: 16px; margin-bottom: 12px; letter-spacing: 2px; }
+  .testimonial blockquote {
+    font-size: 15px; color: #334155; line-height: 1.65;
+    margin-bottom: 16px; font-style: normal;
+  }
+  .testimonial-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .testimonial-avatar {
+    width: 40px; height: 40px;
+    background: #dbeafe; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: #1e40af;
+  }
+  .testimonial-name { font-size: 14px; font-weight: 600; color: #0f172a; }
+  .testimonial-role { font-size: 13px; color: #94a3b8; }
+
+  /* ── Pricing / Final CTA ── */
+  .final-cta {
+    padding: 80px 0 100px;
+    background: linear-gradient(175deg, #eff6ff 0%, #dbeafe 100%);
+    text-align: center;
+  }
+  .pricing-card {
+    background: #fff;
+    border: 2px solid #1e40af;
+    border-radius: 20px;
+    padding: 40px 32px;
+    max-width: 480px;
+    margin: 0 auto 40px;
+    box-shadow: 0 8px 32px rgba(30,64,175,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .pricing-card::before {
+    content: 'EARLY ACCESS';
+    position: absolute; top: 20px; right: -32px;
+    background: #f59e0b; color: #fff;
+    padding: 4px 40px;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 0.1em;
+    transform: rotate(45deg);
+  }
+  .pricing-amount {
+    display: flex; align-items: baseline; justify-content: center; gap: 4px;
+    margin-bottom: 4px;
+  }
+  .pricing-dollar { font-size: 28px; font-weight: 800; color: #0f172a; }
+  .pricing-value { font-size: 56px; font-weight: 800; color: #0f172a; line-height: 1; }
+  .pricing-period { font-size: 16px; color: #94a3b8; font-weight: 500; }
+  .pricing-desc {
+    font-size: 15px; color: #64748b; margin-bottom: 24px;
+  }
+  .pricing-perks {
+    list-style: none; text-align: left;
+    margin-bottom: 28px;
+  }
+  .pricing-perks li {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0;
+    font-size: 15px; color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .pricing-perks li:last-child { border-bottom: none; }
+  .pricing-perks .check {
+    width: 20px; height: 20px;
+    background: #dcfce7; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #16a34a; font-size: 12px; flex-shrink: 0;
+  }
+  .pricing-perks .highlight-perk { font-weight: 700; color: #1e40af; }
+  .pricing-cta-wrap { margin-top: 8px; }
+  .btn-large {
+    display: block; width: 100%;
+    background: #1e40af; color: #fff;
+    padding: 18px 36px; border-radius: 12px;
+    font-size: 18px; font-weight: 700;
+    border: none; cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(30,64,175,0.3);
+    text-align: center;
+  }
+  .btn-large:hover {
+    background: #1e3a8a;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(30,64,175,0.35);
+  }
+  .final-guarantee {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 16px;
+    font-size: 14px; color: #64748b;
+  }
+  .spots-left {
+    font-size: 14px; font-weight: 600; color: #dc2626;
+    margin-top: 24px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .spots-left .dot-red {
+    width: 8px; height: 8px; background: #dc2626;
+    border-radius: 50%; animation: pulse 1.5s infinite;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 40px 0;
+    text-align: center;
+    font-size: 14px;
+  }
+  .footer-logo {
+    font-size: 18px; font-weight: 800; color: #fff;
+    margin-bottom: 8px;
+  }
+  .footer-links { margin-top: 16px; display: flex; justify-content: center; gap: 24px; }
+  .footer-links a { color: #94a3b8; transition: color 0.2s; }
+  .footer-links a:hover { color: #fff; }
+
+  /* ── Responsive ── */
+  @media (min-width: 640px) {
+    .problem-grid { grid-template-columns: 1fr 1fr; }
+    .benefits-grid { grid-template-columns: 1fr 1fr 1fr; }
+    .testimonials { grid-template-columns: 1fr 1fr; }
+    .steps { grid-template-columns: 1fr 1fr 1fr; }
+  }
+  @media (min-width: 768px) {
+    .hero { padding: 140px 0 100px; }
+    .hero-cta-group { flex-direction: row; justify-content: center; }
+  }
+
+  /* ── Lead Magnet / Email Capture ── */
+  .lead-magnet {
+    padding: 64px 0;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+  }
+  .lead-magnet-inner {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .lead-magnet-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(251,191,36,0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(251,191,36,0.3);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 20px;
+  }
+  .lead-magnet h2 {
+    font-size: clamp(22px, 3.5vw, 30px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .lead-magnet-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .lead-magnet-perks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 24px;
+    margin-bottom: 32px;
+  }
+  .lead-magnet-perk {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+  }
+  .lead-magnet-perk .chk { color: #34d399; font-weight: 700; }
+  .email-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .email-form-row {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+  }
+  .email-input {
+    flex: 1;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    backdrop-filter: blur(8px);
+  }
+  .email-input::placeholder { color: rgba(255,255,255,0.45); }
+  .email-input:focus {
+    border-color: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.15);
+  }
+  .email-submit {
+    padding: 14px 24px;
+    background: #fbbf24;
+    color: #0f172a;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .email-submit:hover { background: #f59e0b; transform: translateY(-1px); }
+  .email-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .email-form-note {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .email-form-success {
+    display: none;
+    background: rgba(52,211,153,0.15);
+    border: 1px solid rgba(52,211,153,0.3);
+    border-radius: 12px;
+    padding: 20px 24px;
+    text-align: center;
+  }
+  .email-form-success .success-icon { font-size: 32px; margin-bottom: 8px; }
+  .email-form-success p { font-size: 15px; color: #34d399; font-weight: 600; margin: 0 0 4px; }
+  .email-form-success small { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .email-form-error {
+    display: none;
+    font-size: 13px;
+    color: #f87171;
+    padding: 8px 12px;
+    background: rgba(248,113,113,0.1);
+    border-radius: 6px;
+    width: 100%;
+    text-align: center;
+  }
+  @media (max-width: 560px) {
+    .email-form-row { flex-direction: column; }
+    .lead-magnet-perks { flex-direction: column; align-items: flex-start; padding: 0 16px; }
+  }
+
+</style>
+<!-- Vercel Analytics -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <div class="container">
+    <a href="/" class="nav-logo">
+      <span class="shield-icon">⛨</span>
+      ContractShield
+    </a>
+    <div class="nav-desktop-links" style="display:flex; align-items:center; gap:24px;">
+      <a href="/templates" style="font-size:14px; font-weight:600; color:#1e40af; text-decoration:none;">Free Templates</a>
+      <a href="/blog" style="font-size:14px; font-weight:600; color:#1e40af; text-decoration:none;">Blog</a>
+      <a href="#pricing" class="nav-cta">Get Early Access</a>
+    </div>
+    <button class="nav-hamburger" id="nav-hamburger-btn" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <a href="/templates">Free Templates</a>
+  <a href="/blog">Blog</a>
+  <a href="#pricing" class="nav-mobile-cta">Get Early Access</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      Pre-launch beta — limited spots
+    </div>
+    <h1>Stop Losing <span class="highlight">$1,000s</span> to Client Disputes</h1>
+    <p class="hero-sub">ContractShield reviews your freelance contracts with AI so you get paid on time, avoid scope creep, and never eat the cost of a bad clause again.</p>
+    <div class="hero-cta-group">
+      <a href="#pricing" class="btn-primary">
+        Reserve Your Spot — $10
+        <span class="arrow">→</span>
+      </a>
+    </div>
+    <p class="hero-note" style="justify-content:center; margin-top:16px;">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="#94a3b8" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      One-time $10 reserves lifetime early-access pricing
+    </p>
+  </div>
+</section>
+
+
+<!-- ═══ LEAD MAGNET / EMAIL CAPTURE ═══ -->
+<section class="lead-magnet">
+  <div class="container">
+    <div class="lead-magnet-inner">
+      <div class="lead-magnet-badge">&#127873; Free Download</div>
+      <h2>Get the Free Contract Checklist</h2>
+      <p class="lead-magnet-sub">10 clauses to check before you sign any client contract — the exact list that prevents ghosting, scope creep, and unpaid invoices.</p>
+      <div class="lead-magnet-perks">
+        <span class="lead-magnet-perk"><span class="chk">&#10003;</span> 10-point clause checklist (PDF)</span>
+        <span class="lead-magnet-perk"><span class="chk">&#10003;</span> Red-flag warning signs</span>
+        <span class="lead-magnet-perk"><span class="chk">&#10003;</span> Free &#8212; no credit card</span>
+      </div>
+      <div id="email-capture-form">
+        <form class="email-form" id="lead-form" onsubmit="handleLeadSubmit(event)">
+          <div class="email-form-row">
+            <input
+              type="email"
+              class="email-input"
+              id="lead-email"
+              placeholder="your@email.com"
+              required
+              autocomplete="email"
+            />
+            <button type="submit" class="email-submit" id="lead-submit">
+              Send Me the Checklist &#8594;
+            </button>
+          </div>
+          <div class="email-form-error" id="lead-error"></div>
+          <p class="email-form-note">
+            <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            No spam. Unsubscribe anytime.
+          </p>
+        </form>
+        <div class="email-form-success" id="lead-success">
+          <div class="success-icon">&#9993;&#65039;</div>
+          <p>Check your inbox!</p>
+          <small>The checklist is on its way. Check spam if you don&#39;t see it in 2 minutes.</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DISCOUNT BANNER ═══ -->
+<section class="discount-banner">
+  <div class="container">
+    <div class="discount-inner">
+      <span class="discount-tag">🎁 Founding Member Offer</span>
+      <h2 class="discount-headline"><span class="pct">50% off</span> your first 3 contracts</h2>
+      <p class="discount-detail">Sign up during pre-launch and your first three contract reviews are half price — locked in forever, no strings attached.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROBLEM ═══ -->
+<section class="problem">
+  <div class="container">
+    <p class="problem-label">The Problem</p>
+    <h2>Freelancers lose an average of $6,000/year to contract issues</h2>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">💸</div>
+        <div>
+          <h3>Unpaid invoices</h3>
+          <p>Vague payment terms let clients delay or dodge what they owe you.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">📈</div>
+        <div>
+          <h3>Scope creep</h3>
+          <p>"Just one more thing" turns a $2K project into $5K of unpaid work.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">⚖️</div>
+        <div>
+          <h3>Risky clauses</h3>
+          <p>IP assignments and liability traps buried in fine print you didn't catch.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">🕐</div>
+        <div>
+          <h3>Lawyer costs</h3>
+          <p>$300–$500/hr for a contract review means most freelancers just wing it.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ BENEFITS ═══ -->
+<section class="benefits">
+  <div class="container">
+    <p class="section-label">The Solution</p>
+    <h2>Contract protection that actually works</h2>
+    <p class="section-sub">Upload your contract. Get a plain-English risk report in minutes, not days.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🔍</div>
+        <h3>Clause-by-Clause Analysis</h3>
+        <p>Every paragraph scored for risk. Dangerous terms get flagged with specific rewrites you can copy-paste back to your client.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🛡️</div>
+        <h3>Scope Creep Protection</h3>
+        <p>We check that deliverables, revisions, and timelines are airtight — so "one more thing" stays out of scope.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💰</div>
+        <h3>Payment Safety Net</h3>
+        <p>Get alerts on missing late-fee clauses, unclear milestones, and payment terms that leave you exposed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how">
+  <div class="container">
+    <p class="section-label">How It Works</p>
+    <h2>Three steps. Five minutes.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Upload your contract</h3>
+          <p>PDF, DOCX, or paste text directly. We support any standard freelance agreement.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Get your risk report</h3>
+          <p>AI-powered review flags issues and gives you plain-English explanations in under 5 minutes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Send back with confidence</h3>
+          <p>Use our suggested rewrites to negotiate better terms — or sign knowing you're protected.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOCIAL PROOF ═══ -->
+<section class="proof">
+  <div class="container">
+    <p class="section-label">Early Feedback</p>
+    <h2>Freelancers are already excited</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <blockquote>"I lost $3,200 last year because a contract didn't specify revision limits. Something like ContractShield would have caught that in seconds."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JR</div>
+          <div>
+            <div class="testimonial-name">Jamie R.</div>
+            <div class="testimonial-role">Brand Designer, 6 yrs freelancing</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <blockquote>"I've been using a lawyer for contract reviews at $400 a pop. If this delivers even half of what it promises, it's a no-brainer at this price."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">MK</div>
+          <div>
+            <div class="testimonial-name">Maria K.</div>
+            <div class="testimonial-role">Freelance Developer</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Scope creep killed my last two projects. Having an AI check for deliverable gaps before I sign? Take my money."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">DL</div>
+          <div>
+            <div class="testimonial-name">David L.</div>
+            <div class="testimonial-role">Copywriter &amp; Content Strategist</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Finally, something built for freelancers and not enterprise legal teams. The plain-English explanations are exactly what I need."</blockquote>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">SP</div>
+          <div>
+            <div class="testimonial-name">Sarah P.</div>
+            <div class="testimonial-role">UX/UI Designer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING / FINAL CTA ═══ -->
+<section class="final-cta" id="pricing">
+  <div class="container">
+    <p class="section-label">Limited Pre-Launch Offer</p>
+    <h2 style="font-size:clamp(24px,3.5vw,36px); font-weight:800; color:#0f172a; margin-bottom:32px;">Lock in your founding member rate</h2>
+    <div class="pricing-card">
+      <div class="pricing-amount">
+        <span class="pricing-dollar">$</span>
+        <span class="pricing-value">10</span>
+      </div>
+      <div class="pricing-period">one-time to reserve your spot</div>
+      <p class="pricing-desc">Applied as credit toward your first contract review</p>
+      <ul class="pricing-perks">
+        <li>
+          <span class="check">✓</span>
+          <span class="highlight-perk">50% off your first 3 contract reviews</span>
+        </li>
+        <li>
+          <span class="check">✓</span>
+          Priority access when we launch
+        </li>
+        <li>
+          <span class="check">✓</span>
+          Locked-in founding member pricing for life
+        </li>
+        <li>
+          <span class="check">✓</span>
+          $10 applied as credit — nothing wasted
+        </li>
+        <li>
+          <span class="check">✓</span>
+          Full refund if we don't launch by Q3 2026
+        </li>
+      </ul>
+      <div class="pricing-cta-wrap">
+        <a href="https://buy.stripe.com/dRmbJ2dUMaLU1w59tVcjS00" class="btn-large">
+          Reserve My Spot — $10 →
+        </a>
+      </div>
+    </div>
+    <div class="final-guarantee">
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#64748b" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Secure payment via Stripe · Cancel anytime before launch for a full refund
+    </div>
+    <div class="spots-left">
+      <span class="dot-red"></span>
+      Only 47 of 100 founding spots remaining
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">⛨ ContractShield</div>
+    <p>AI-powered contract protection for freelancers.</p>
+
+    <!-- Customer service contact details -->
+    <div style="margin: 16px 0; font-size: 14px; color: #94a3b8; line-height: 1.8;">
+      <strong style="color:#cbd5e1;">Questions? Contact us:</strong><br>
+      📧 <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a><br>
+      We respond within 1 business day (Mon–Fri).
+    </div>
+
+    <div class="footer-links">
+      <a href="mailto:support@contractshield.co">Contact</a>
+      <a href="#" onclick="openPolicy('refund'); return false;">Refund Policy</a>
+      <a href="#" onclick="openPolicy('cancel'); return false;">Cancellation</a>
+      <a href="#" onclick="openPolicy('promo'); return false;">Promo Terms</a>
+      <a href="#" onclick="openPolicy('privacy'); return false;">Privacy</a>
+    </div>
+    <p style="margin-top: 20px; font-size: 13px;">© 2026 ContractShield. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ═══ POLICY MODALS ═══ -->
+<div id="policy-overlay" onclick="closePolicy()" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:1000; overflow-y:auto; padding:40px 20px;">
+  <div id="policy-box" onclick="event.stopPropagation()" style="background:#fff; max-width:680px; margin:0 auto; border-radius:16px; padding:40px; position:relative; font-family:inherit; color:#1e293b; line-height:1.7;">
+    <button onclick="closePolicy()" style="position:absolute; top:16px; right:20px; background:none; border:none; font-size:22px; cursor:pointer; color:#64748b;">✕</button>
+    <div id="policy-content"></div>
+  </div>
+</div>
+
+<script>
+const policies = {
+  refund: `
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Refund &amp; Dispute Policy</h2>
+    <p style="color:#64748b;font-size:13px;margin-bottom:24px;">Effective date: May 2026</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Pre-Launch Reservation ($10)</h3>
+    <p>Your $10 pre-launch reservation fee is <strong>fully refundable</strong> under any of the following conditions:</p>
+    <ul style="padding-left:20px;margin:8px 0 16px;">
+      <li>ContractShield does not publicly launch by <strong>September 30, 2026</strong>.</li>
+      <li>You request a refund at any time <strong>before the product launches</strong>.</li>
+      <li>You are dissatisfied for any reason within <strong>14 days of the product launch</strong>.</li>
+    </ul>
+    <p>To request a refund, email <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a> with the subject line <em>"Refund Request"</em> and the email address used at checkout. Refunds are processed within 5–10 business days to your original payment method.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Disputes &amp; Chargebacks</h3>
+    <p>We aim to resolve every issue directly. If you have a concern with a charge, please contact us first at <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a> and we will make it right within 2 business days. If you initiate a dispute with your bank or card issuer, we will provide documentation of your purchase and our refund policy to the payment processor.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Contact</h3>
+    <p>📧 <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a></p>
+  `,
+  cancel: `
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Cancellation Policy</h2>
+    <p style="color:#64748b;font-size:13px;margin-bottom:24px;">Effective date: May 2026</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Pre-Launch Reservation</h3>
+    <p>You may cancel your $10 pre-launch reservation at any time <strong>before ContractShield's public launch</strong> and receive a full refund. There are no cancellation fees.</p>
+    <p>To cancel, simply email <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a> with the subject <em>"Cancel Reservation"</em> and your order email. We'll confirm your cancellation and process your refund within 5 business days.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Post-Launch Subscriptions</h3>
+    <p>Once the product launches, any subscription or pay-per-use plan can be cancelled at any time from your account dashboard. Cancellation takes effect at the end of the current billing period. No partial refunds are issued for unused time in a billing period unless required by law.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Contact</h3>
+    <p>📧 <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a></p>
+  `,
+  promo: `
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Promotion Terms &amp; Conditions</h2>
+    <p style="color:#64748b;font-size:13px;margin-bottom:24px;">Pre-Launch Founding Member Offer — Effective date: May 2026</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">The Offer</h3>
+    <p>Pay a one-time <strong>$10 reservation fee</strong> to secure a founding member spot and receive:</p>
+    <ul style="padding-left:20px;margin:8px 0 16px;">
+      <li><strong>50% discount</strong> on your first 3 contract reviews after launch.</li>
+      <li>Priority early access when ContractShield launches.</li>
+      <li>Locked-in founding member pricing for the lifetime of your account.</li>
+      <li>The $10 reservation fee applied as a credit toward your first purchase.</li>
+    </ul>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Eligibility</h3>
+    <p>Open to individuals aged 18 or older. Limited to the first 100 reservations. One reservation per person. Offer available until all spots are filled or the product launches, whichever comes first.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Discount Details</h3>
+    <p>The 50% discount applies to the standard per-review price at time of launch, on your first 3 contract reviews. It cannot be combined with other discount codes or promotions. The $10 credit is applied automatically to your account upon product launch; it does not expire and has no cash value.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Launch Guarantee</h3>
+    <p>If ContractShield does not publicly launch by <strong>September 30, 2026</strong>, all reservation holders will receive a full refund of their $10 automatically. No action required on your part.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Modifications</h3>
+    <p>ContractShield reserves the right to modify or discontinue this promotion at any time. Existing reservation holders will be notified by email of any material changes. All other terms are governed by our general Terms of Service.</p>
+
+    <h3 style="font-size:16px;font-weight:700;margin:20px 0 8px;">Contact</h3>
+    <p>📧 <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a></p>
+  `,
+  privacy: `
+    <h2 style="font-size:22px;font-weight:800;margin-bottom:8px;">Privacy Policy</h2>
+    <p style="color:#64748b;font-size:13px;margin-bottom:24px;">Effective date: May 2026</p>
+    <p>ContractShield collects only the information necessary to process your reservation and deliver the product: your email address and payment details (processed securely by Stripe — we never store card numbers). We do not sell or share your personal data with third parties. You may request deletion of your data at any time by emailing <a href="mailto:support@contractshield.co" style="color:#6366f1;">support@contractshield.co</a>.</p>
+  `
+};
+
+function openPolicy(key) {
+  document.getElementById('policy-content').innerHTML = policies[key];
+  document.getElementById('policy-overlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function closePolicy() {
+  document.getElementById('policy-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePolicy(); });
+
+// ── ContractShield Analytics ──────────────────────────────────
+// Track checkout button click (conversion event)
+document.querySelectorAll('a[href*="buy.stripe.com"], a.btn-large, a.btn-primary').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    if (window.va) {
+      window.va('event', { name: 'checkout_click', data: { destination: btn.href || 'unknown' } });
+    }
+  });
+});
+
+// Track /success pageview goal (post-payment redirect)
+if (window.location.pathname === '/success' || window.location.search.includes('checkout=success')) {
+  if (window.va) {
+    window.va('event', { name: 'payment_success' });
+  }
+}
+// ─────────────────────────────────────────────────────────────
+
+// ── Lead Magnet Email Capture ─────────────────────────────────────────────────
+async function handleLeadSubmit(e) {
+  e.preventDefault();
+  var email = document.getElementById('lead-email').value.trim();
+  var btn = document.getElementById('lead-submit');
+  var errorEl = document.getElementById('lead-error');
+  var successEl = document.getElementById('lead-success');
+  var formEl = document.getElementById('lead-form');
+
+  if (!email) return;
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  errorEl.style.display = 'none';
+
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email }),
+  })
+  .then(function(res) { return res.json().then(function(data) { return { ok: res.ok, data: data }; }); })
+  .then(function(r) {
+    if (r.ok && r.data.success) {
+      formEl.style.display = 'none';
+      successEl.style.display = 'block';
+      if (window.va) {
+        window.va('event', { name: 'lead_capture', data: { source: 'below_hero' } });
+      }
+    } else {
+      throw new Error(r.data.error || 'Something went wrong. Please try again.');
+    }
+  })
+  .catch(function(err) {
+    errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+    errorEl.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Send Me the Checklist →';
+  });
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
+</script>
+
+
+<script>
+(function() {
+  var btn = document.getElementById('nav-hamburger-btn');
+  var menu = document.getElementById('nav-mobile-menu');
+  if (!btn || !menu) return;
+  function toggleMenu(open) {
+    btn.classList.toggle('open', open);
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    toggleMenu(!menu.classList.contains('open'));
+  });
+  // Close on link click
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() { toggleMenu(false); });
+  });
+  // Close on outside click
+  document.addEventListener('click', function(e) {
+    if (menu.classList.contains('open') && !menu.contains(e.target) && e.target !== btn) {
+      toggleMenu(false);
+    }
+  });
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') toggleMenu(false);
+  });
+})();
+</script>
+
+</body>
+</html>
